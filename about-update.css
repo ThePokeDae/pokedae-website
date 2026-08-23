@@ -1,0 +1,14 @@
+.whatBanner{position:relative;min-height:430px;display:grid;grid-template-columns:1.15fr .85fr;align-items:center;overflow:hidden;padding:60px 64px;background:var(--ink);color:#fff;border-bottom:10px solid var(--red);box-shadow:14px 14px 0 #d8d1c6}
+.whatBanner:before{content:"";position:absolute;inset:18px;border:1px solid #ffffff18;pointer-events:none}
+.whatBanner:after{content:"WHAT WE DO • WHAT WE DO • WHAT WE DO •";position:absolute;left:0;right:0;bottom:0;overflow:hidden;white-space:nowrap;color:#ffffff08;font-size:72px;font-weight:950;letter-spacing:-.06em;line-height:.7}
+.whatCopy{position:relative;z-index:3;align-self:center}
+.whatKicker{margin:0 0 20px;color:var(--red);font-size:10px;font-weight:950;letter-spacing:.24em}
+.whatCopy h2{margin:0;font-size:clamp(76px,8vw,112px);font-weight:950;line-height:.72;letter-spacing:-.085em}
+.whatCopy h2 span{color:var(--red)}
+.whatCopy>p:last-child{max-width:430px;margin:34px 0 0;color:#d4d4d4;font-size:18px;line-height:1.55}
+.whatMascot{position:absolute;z-index:4;right:20%;bottom:-105px;width:320px;filter:drop-shadow(14px 10px 0 #ef2b2d55)}
+.whatMascot img{display:block;width:100%;height:auto}
+.whatSideNote{position:absolute;z-index:5;right:42px;top:48px;margin:0;padding-left:18px;border-left:3px solid var(--red);color:#bcbcbc;font-size:10px;font-weight:800;line-height:1.7;letter-spacing:.07em;text-transform:uppercase}
+@media(max-width:950px){.whatBanner{grid-template-columns:1fr;padding:50px 38px;min-height:500px}.whatCopy h2{font-size:82px}.whatMascot{right:-15px;bottom:-80px;width:280px}.whatSideNote{display:none}.whatCopy>p:last-child{max-width:340px}}
+@media(max-width:600px){.whatBanner{min-height:600px;padding:46px 25px;align-items:start}.whatCopy h2{font-size:68px}.whatCopy>p:last-child{max-width:100%;font-size:16px}.whatMascot{right:50%;bottom:-100px;width:290px;transform:translateX(50%)} }
+.retailers{justify-content:center}
