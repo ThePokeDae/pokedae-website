@@ -1,0 +1,27 @@
+.solarSystem{position:relative;width:min(520px,100%);aspect-ratio:1;display:grid;place-items:center;isolation:isolate}
+.solarSystem:before{content:"";position:absolute;inset:9%;border-radius:50%;background:radial-gradient(circle,#ef2b2d26 0 35%,transparent 68%);filter:blur(8px)}
+.orbitTrack{position:absolute;left:50%;top:50%;border:1.5px solid #19191955;border-radius:50%;transform-origin:center;pointer-events:none}
+.orbitTrack:before{content:"";position:absolute;width:5px;height:5px;border-radius:50%;background:var(--red);box-shadow:0 0 0 4px #ef2b2d18}
+.trackOne{width:108%;height:47%;transform:translate(-50%,-50%) rotate(-14deg);border-style:solid dashed}.trackOne:before{right:12%;top:5%}
+.trackTwo{width:96%;height:64%;transform:translate(-50%,-50%) rotate(19deg);border-color:#ef2b2d66;border-style:dashed}.trackTwo:before{left:7%;bottom:15%}
+.trackThree{width:78%;height:95%;transform:translate(-50%,-50%) rotate(43deg);border-color:#19191933}.trackThree:before{right:3%;bottom:34%}
+.trackFour{width:118%;height:81%;transform:translate(-50%,-50%) rotate(-31deg);border-color:#ef2b2d35;border-style:dashed}.trackFour:before{left:17%;top:2%}
+.sun{position:relative;z-index:2;width:58%;aspect-ratio:1;display:grid;place-items:center;border-radius:50%;background:radial-gradient(circle,#fff 0 53%,#f7ded5 69%,#ef2b2d 72%,#8d1113 100%);box-shadow:0 0 0 7px #f5f0e7,0 0 0 9px #111,0 20px 32px #0005,0 0 55px #ef2b2d66}
+.sun img{width:87%;filter:drop-shadow(0 12px 10px #0004)}
+.value{position:absolute;z-index:4;padding:4px 7px;background:var(--cream);color:#111;font-size:8px;font-weight:950;letter-spacing:.13em;line-height:1;border-radius:99px}
+.value:after{content:"•";margin-left:7px;color:var(--red)}
+.collect{top:-13%;left:10%;transform:rotate(-28deg)}
+.connect{top:-15%;right:7%;transform:rotate(28deg)}
+.invest{bottom:-13%;right:10%;transform:rotate(-28deg)}
+.inspire{bottom:-14%;left:8%;transform:rotate(27deg)}
+.planet{position:absolute;z-index:5;width:88px;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:50%;background:#111;color:#fff;border:5px solid var(--cream);outline:2px solid #111;text-align:center;font-size:9px;font-weight:950;line-height:1.15;letter-spacing:.09em;box-shadow:5px 7px 0 var(--red)}
+.planet b{margin-bottom:5px;color:var(--red);font-size:20px;line-height:1}
+.restocks{left:-2%;top:12%;animation:floatA 5s ease-in-out infinite}
+.breaking{right:-4%;top:30%;background:var(--red);box-shadow:5px 7px 0 #111;animation:floatB 5.8s ease-in-out infinite}
+.breaking b{color:#fff}
+.noFomo{left:7%;bottom:2%;animation:floatB 6.2s ease-in-out infinite}
+.updates{right:4%;bottom:10%;animation:floatA 5.4s ease-in-out infinite}
+@keyframes floatA{50%{transform:translateY(-7px) rotate(3deg)}}
+@keyframes floatB{50%{transform:translateY(7px) rotate(-3deg)}}
+@media(max-width:800px){.solarSystem{width:350px}.planet{width:68px;border-width:3px;font-size:7px}.planet b{font-size:15px}.value{font-size:6px}.restocks{left:0}.breaking{right:0}.updates{right:3%}}
+@media(prefers-reduced-motion:reduce){.planet{animation:none}}
