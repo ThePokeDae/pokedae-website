@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import "./signup.css";\n@import "tailwindcss";
 @import "./hero-update.css";
 @import "./about-update.css";
 @import "./mascot-update.css";
