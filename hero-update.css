@@ -23,10 +23,13 @@
 .breaking{--orbit:ellipse(43% 41% at 50% 50%);--speed:19s;background:var(--red);box-shadow:5px 7px 0 #111;animation-delay:-5s}.breaking b{color:#fff;font-size:18px;filter:drop-shadow(0 0 5px #fff8)}
 .noFomo{--orbit:ellipse(37% 48% at 50% 50%);--speed:22s;animation-delay:-10s}
 .updates{--orbit:ellipse(50% 36% at 50% 50%);--speed:18s;animation-delay:-13s}
+.mascotShip{position:absolute;z-index:7;left:0;top:0;width:150px;offset-path:ellipse(53% 45% at 50% 50%);offset-distance:13%;offset-rotate:auto 0deg;animation:mascotFlight 24s linear infinite;filter:drop-shadow(0 8px 7px #0004);will-change:offset-distance,transform}
+.mascotShip img{display:block;width:100%;height:auto}
 @keyframes planetOrbit{0%{offset-distance:0%;filter:drop-shadow(0 0 0 #ef2b2d00)}45%{filter:drop-shadow(0 0 4px #ef2b2d55)}100%{offset-distance:100%;filter:drop-shadow(0 0 0 #ef2b2d00)}}
+@keyframes mascotFlight{0%{offset-distance:13%;transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-7px) rotate(2deg)}100%{offset-distance:113%;transform:translateY(0) rotate(-2deg)}}
 @keyframes coronaTurn{to{transform:rotate(360deg)}}
 @keyframes sunPulse{50%{box-shadow:0 0 0 7px #f5f0e7,0 0 0 9px #111,0 20px 32px #0005,0 0 64px #ef2b2daa,0 0 118px #ff6a4866;transform:scale(1.025)}}
 @keyframes haloPulse{50%{inset:-11%;opacity:.45}}
 @keyframes sunBreathe{50%{transform:scale(1.12);opacity:.66}}
-@media(max-width:800px){.solarSystem{width:350px}.planet{width:68px;border-width:3px;font-size:7px}.planet b{font-size:15px}.value{font-size:6px}}
-@media(prefers-reduced-motion:reduce){.planet,.sun,.sun:before,.sun:after,.solarFlare,.solarSystem:before,.solarSystem:after{animation:none}}
+@media(max-width:800px){.solarSystem{width:350px}.planet{width:68px;border-width:3px;font-size:7px}.planet b{font-size:15px}.value{font-size:6px}.mascotShip{width:108px}}
+@media(prefers-reduced-motion:reduce){.planet,.mascotShip,.sun,.sun:before,.sun:after,.solarFlare,.solarSystem:before,.solarSystem:after{animation:none}}
