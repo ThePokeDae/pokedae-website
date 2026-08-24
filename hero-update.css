@@ -22,7 +22,7 @@
 .restocks{--orbit:ellipse(48% 26% at 50% 50%);--speed:15s;animation-delay:-1s}
 .breaking{--orbit:ellipse(43% 41% at 50% 50%);--speed:19s;background:var(--red);box-shadow:5px 7px 0 #111;animation-delay:-5s}.breaking b{color:#fff;font-size:18px;filter:drop-shadow(0 0 5px #fff8)}
 .noFomo{--orbit:ellipse(37% 48% at 50% 50%);--speed:22s;animation-delay:-10s}
-.updates{--orbit:ellipse(50% 36% at 50% 50%);--speed:18s;animation-delay:-13s}
+.updates{--orbit:ellipse(50% 36% at 50% 50%);--speed:18s;animation-delay:-13s}\n.calendar{--orbit:ellipse(46% 47% at 50% 50%);--speed:25s;animation-delay:-18s;background:#fff;color:#111;border-color:var(--red);outline-color:#111;box-shadow:5px 7px 0 #111}.calendar b{font-size:19px;filter:drop-shadow(0 0 5px #ef2b2d66)}
 .mascotShip{position:absolute;z-index:7;left:0;top:0;width:150px;offset-path:ellipse(53% 45% at 50% 50%);offset-distance:13%;offset-rotate:auto 180deg;animation:mascotFlight 24s linear infinite;filter:drop-shadow(0 8px 7px #0004);will-change:offset-distance,transform}
 .mascotShip img{display:block;width:100%;height:auto}
 @keyframes planetOrbit{0%{offset-distance:0%;filter:drop-shadow(0 0 0 #ef2b2d00)}45%{filter:drop-shadow(0 0 4px #ef2b2d55)}100%{offset-distance:100%;filter:drop-shadow(0 0 0 #ef2b2d00)}}
