@@ -10,4 +10,6 @@
 .giveawayNav{background:var(--red);color:#fff;border-radius:99px}
 @media(max-width:800px){.navLinks{gap:0}.navLinks>a{display:none}.navLinks>a.giveawayNav:not(.dark){display:inline-flex;padding:13px 18px;font-size:12px}}
 @media(max-width:380px){.siteAddress b{display:none}}
+.mobileGiveaway{display:none}
+@media(max-width:1100px){.mobileGiveaway{position:fixed;right:16px;bottom:16px;z-index:9999;display:inline-flex;align-items:center;justify-content:center;padding:16px 20px;border:2px solid #fff;border-radius:999px;background:var(--red);color:#fff;box-shadow:0 5px 18px #0006;font-size:13px;font-weight:950;letter-spacing:.06em;text-transform:uppercase}}
 .pdiMarketTrack .marketProduct{color:#fff}.pdiMarketTrack .marketPrice{color:#ffd166}.pdiMarketTrack .marketUp{color:#39dc88}.pdiMarketTrack .marketDown{color:#ff5d64}.pdiMarketTrack .marketFlat{color:#aeb8c8}
