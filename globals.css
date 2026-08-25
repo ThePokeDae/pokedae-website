@@ -8,6 +8,6 @@
 
 /* Keep the active giveaway easy to find on every screen. */
 .giveawayNav{background:var(--red);color:#fff;border-radius:99px}
-@media(max-width:800px){.navLinks{gap:0}.navLinks>a{display:none}.navLinks>.giveawayNav{display:inline-flex;padding:13px 18px;font-size:12px}}
+@media(max-width:800px){.navLinks{gap:0}.navLinks>a{display:none}.navLinks>a.giveawayNav:not(.dark){display:inline-flex;padding:13px 18px;font-size:12px}}
 @media(max-width:380px){.siteAddress b{display:none}}
 .pdiMarketTrack .marketProduct{color:#fff}.pdiMarketTrack .marketPrice{color:#ffd166}.pdiMarketTrack .marketUp{color:#39dc88}.pdiMarketTrack .marketDown{color:#ff5d64}.pdiMarketTrack .marketFlat{color:#aeb8c8}
