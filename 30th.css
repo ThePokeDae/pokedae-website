@@ -115,3 +115,7 @@ main{overflow:hidden}.commandHero{position:relative;display:grid;grid-template-c
 .eventGrid{margin-top:25px}
 @media(max-width:850px){.eventRadar>.sectionTitle{grid-template-columns:190px 1fr;min-height:180px}.eventRadar>.sectionTitle:before{left:10px;width:170px;height:150px;background-size:135px auto}.eventRadar>.sectionTitle>span{position:absolute;left:0}.eventRadar>.sectionTitle h2,.eventRadar>.sectionTitle>p{grid-column:2}}
 @media(max-width:560px){.eventRadar{padding-top:62px}.eventRadar>.sectionTitle{display:block;min-height:0;padding:130px 0 8px}.eventRadar>.sectionTitle:before{top:-5px;left:50%;width:165px;height:130px;background-size:115px auto;transform:translateX(-50%) rotate(-3deg)}.eventRadar>.sectionTitle>span{top:0;left:0}.eventRadar>.sectionTitle h2,.eventRadar>.sectionTitle>p{display:block}.eventGrid{margin-top:20px}}
+
+
+/* Wave bars stay clean: mascot art belongs only in protected feature areas. */
+.waveHeader:after{display:none!important}
