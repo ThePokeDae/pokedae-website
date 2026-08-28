@@ -1,4 +1,5 @@
 .activeNav{color:var(--red)}
+.calendarTicker .pdiMarketTrack{animation-duration:55s}.calendarTicker .pdiMarketTrack a{display:inline-flex;align-items:center;height:40px;padding:0 8px;transition:color .15s,background .15s}.calendarTicker .pdiMarketTrack a:hover,.calendarTicker .pdiMarketTrack a:focus-visible{color:#ffd166;background:#ffffff0d;outline:none}
 .calendarPage{padding-bottom:100px}
 .calendarHero{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 540px;align-items:end;gap:45px;padding:72px 0 48px;border-bottom:5px solid var(--ink)}
 .calendarHero:before{content:"";position:absolute;right:0;bottom:-5px;width:31%;height:5px;background:var(--red)}
