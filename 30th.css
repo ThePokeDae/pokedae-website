@@ -82,3 +82,36 @@ main{overflow:hidden}.commandHero{position:relative;display:grid;grid-template-c
 .briefingShip{width:180px!important;max-height:180px;object-fit:contain;align-self:center}
 @media(max-width:850px){.briefingTitle{grid-template-columns:minmax(0,1fr) 150px!important}.briefingShip{width:145px!important;max-height:145px}}
 @media(max-width:560px){.briefingTitle{min-height:335px;padding-bottom:105px!important}.briefingShip{right:5px;bottom:-18px;width:125px!important;max-height:125px}}
+
+
+/* Release radar command panel. */
+.releaseTimeline>.sectionTitle{position:relative;min-height:235px;padding:38px 205px 38px 42px;overflow:hidden;color:#fff;background:linear-gradient(125deg,#111216 0 72%,#ef2b2d 72%);border:4px solid var(--ink);box-shadow:10px 10px 0 var(--gold)}
+.releaseTimeline>.sectionTitle:before{content:"04";position:absolute;right:175px;bottom:-62px;color:#fff;font-size:225px;font-weight:950;line-height:1;letter-spacing:-.1em;opacity:.06}
+.releaseTimeline>.sectionTitle>span{color:var(--gold)}
+.releaseTimeline>.sectionTitle h2{position:relative;z-index:2;color:#fff}
+.releaseTimeline>.sectionTitle h2 em{color:#ff3436}
+.releaseTimeline>.sectionTitle:after{right:28px;top:50%;width:145px;height:135px;transform:translateY(-50%) rotate(6deg);filter:drop-shadow(7px 8px 0 rgba(0,0,0,.28))}
+.timelineRail article{overflow:hidden;border-left:8px solid #111;transition:transform .16s ease,box-shadow .16s ease}
+.timelineRail article:nth-child(2){border-left-color:#ffd22e}
+.timelineRail article:nth-child(3){border-left-color:#ef2b2d}
+.timelineRail article:nth-child(4){border-left-color:#111}
+.timelineRail article.active{color:#fff;background:#15161a;border-left-color:var(--red);box-shadow:7px 7px 0 var(--gold)}
+.timelineRail article.active p{color:#d4d0c9}
+.timelineRail article.active div{border-left-color:#555}
+.timelineRail article.active>span{color:var(--red)}
+.timelineRail article:hover{transform:translateX(5px);box-shadow:9px 9px 0 #d2c9bc}
+.timelineRail article.active:hover{box-shadow:9px 9px 0 var(--gold)}
+.calendarLink{border:3px solid var(--ink);box-shadow:6px 6px 0 var(--gold)}
+@media(max-width:850px){.releaseTimeline>.sectionTitle{min-height:210px;padding:32px 165px 32px 30px}.releaseTimeline>.sectionTitle:after{display:block;right:20px;width:120px;height:112px}.releaseTimeline>.sectionTitle:before{right:135px;font-size:180px}}
+@media(max-width:560px){.releaseTimeline>.sectionTitle{min-height:285px;padding:27px 20px 125px}.releaseTimeline>.sectionTitle:after{display:block;right:12px;top:auto;bottom:-18px;width:115px;height:108px;transform:rotate(5deg)}.releaseTimeline>.sectionTitle:before{right:75px;bottom:-35px;font-size:145px}.timelineRail article:hover{transform:none}}
+
+/* Tighten the event radar so artwork and copy share one purposeful row. */
+.eventRadar{padding-top:78px;padding-bottom:82px}
+.eventRadar>.sectionTitle{grid-template-columns:38% 62%;min-height:190px;padding:8px 0 18px}
+.eventRadar>.sectionTitle:before{left:34px;bottom:0;width:190px;height:165px;padding:0;background-size:150px auto;font-size:0;filter:drop-shadow(5px 6px 0 rgba(17,17,17,.12))}
+.eventRadar>.sectionTitle>span{position:absolute;left:0;top:3px}
+.eventRadar>.sectionTitle h2{align-self:end}
+.eventRadar>.sectionTitle>p{align-self:start;margin-top:14px}
+.eventGrid{margin-top:25px}
+@media(max-width:850px){.eventRadar>.sectionTitle{grid-template-columns:190px 1fr;min-height:180px}.eventRadar>.sectionTitle:before{left:10px;width:170px;height:150px;background-size:135px auto}.eventRadar>.sectionTitle>span{position:absolute;left:0}.eventRadar>.sectionTitle h2,.eventRadar>.sectionTitle>p{grid-column:2}}
+@media(max-width:560px){.eventRadar{padding-top:62px}.eventRadar>.sectionTitle{display:block;min-height:0;padding:130px 0 8px}.eventRadar>.sectionTitle:before{top:-5px;left:50%;width:165px;height:130px;background-size:115px auto;transform:translateX(-50%) rotate(-3deg)}.eventRadar>.sectionTitle>span{top:0;left:0}.eventRadar>.sectionTitle h2,.eventRadar>.sectionTitle>p{display:block}.eventGrid{margin-top:20px}}
