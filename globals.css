@@ -9,6 +9,14 @@
 /* Keep the active giveaway easy to find on every screen. */
 .giveawayNav{background:var(--red);color:#fff;border-radius:99px}
 @media(max-width:800px){.navLinks{gap:0}.navLinks>a{display:none}.navLinks>a.giveawayNav:not(.dark){display:inline-flex;padding:13px 18px;font-size:12px}}
+
+@media(max-width:800px){
+  .nav{height:auto;min-height:76px;align-items:flex-start;gap:12px;padding:15px 0;flex-wrap:wrap}
+  .navLinks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));flex:1 0 100%;gap:8px;width:100%}
+  .navLinks>a,.navLinks>a:not(.dark),.navLinks>a.giveawayNav:not(.dark){display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:10px 9px;text-align:center;font-size:9px;border:1px solid #cfc7bb;border-radius:99px}
+  .navLinks>a.dark{padding:10px 12px;border-color:var(--ink)}
+  .navLinks>a.giveawayNav:not(.dark){border-color:var(--red)}
+}
 @media(max-width:380px){.siteAddress b{display:none}}
 .mobileGiveaway{display:none}
 @media(max-width:1100px){.mobileGiveaway{position:fixed;right:16px;bottom:16px;z-index:9999;display:inline-flex;align-items:center;justify-content:center;padding:16px 20px;border:2px solid #fff;border-radius:999px;background:var(--red);color:#fff;box-shadow:0 5px 18px #0006;font-size:13px;font-weight:950;letter-spacing:.06em;text-transform:uppercase}}
