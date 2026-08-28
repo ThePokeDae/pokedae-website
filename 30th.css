@@ -51,3 +51,27 @@ main{overflow:hidden}.commandHero{position:relative;display:grid;grid-template-c
 .jumpNav:before{content:"EXPLORE THE COMMAND CENTER";display:flex;align-items:center;padding:0 12px 0 5px;color:var(--gold);border-right:1px solid #484b52;font-size:8px;font-weight:950;letter-spacing:.13em;white-space:nowrap}
 @media(max-width:850px){.confirmedStrip{max-width:100%}.jumpNav:before{position:sticky;left:0;z-index:2;background:#111}}
 @media(max-width:560px){.heroActions{display:grid;grid-template-columns:1fr}.heroActions a{width:auto}.confirmedStrip{grid-template-columns:1fr;padding:10px 42px 10px 10px}.confirmedStrip b{justify-self:start}.confirmedStrip span{font-size:10px}.jumpNav:before{display:none}}
+
+
+/* 30th command-center energy: oversized anniversary art with protected content. */
+.commandHero:before{display:block;content:"30";left:-48px;bottom:-78px;z-index:-1;color:var(--ink);font-size:330px;font-weight:950;line-height:.8;letter-spacing:-.1em;text-shadow:10px 10px 0 var(--gold);opacity:1;pointer-events:none}
+.heroCopy{isolation:isolate}
+.heroActions,.confirmedStrip{position:relative;z-index:4}
+.briefingTitle{position:relative!important;display:grid!important;grid-template-columns:minmax(0,1fr) 310px!important;align-items:center!important;min-height:300px;margin-bottom:42px;padding:38px 42px;overflow:hidden;color:#fff;background:linear-gradient(128deg,#111216 0 68%,#ef2b2d 68% 100%);border:4px solid var(--ink);box-shadow:10px 10px 0 var(--gold)}
+.briefingTitle:before{content:"30";position:absolute;left:38%;bottom:-74px;color:#fff;font-size:250px;font-weight:950;line-height:1;letter-spacing:-.1em;opacity:.055;pointer-events:none}
+.briefingCopy{position:relative;z-index:3}
+.briefingTitle .briefingCopy>span{display:block;margin-bottom:13px;color:var(--gold);font-size:10px;font-weight:950;letter-spacing:.18em}
+.briefingTitle h2{color:#fff;font-size:clamp(54px,6vw,80px)}
+.briefingTitle h2 em{color:#ff3436}
+.briefingCopy>b{display:inline-block;margin-top:23px;padding:9px 12px;color:#111;background:var(--gold);border:2px solid #111;font-size:9px;letter-spacing:.12em;box-shadow:4px 4px 0 #fff}
+.briefingShip{position:relative;z-index:2;justify-self:end;width:300px;max-width:none;filter:drop-shadow(10px 12px 0 rgba(0,0,0,.28));transform:rotate(3deg)}
+.waveHeader:after{content:"";position:absolute;right:70px;bottom:-5px;width:54px;height:50px;background:url("./pokedae-spaceship.png") center/contain no-repeat;filter:drop-shadow(3px 3px 0 rgba(0,0,0,.28));transform:rotate(-5deg);pointer-events:none}
+.waveHeader em{position:relative;z-index:2}
+.releaseTimeline>.sectionTitle{position:relative;padding-right:150px}
+.releaseTimeline>.sectionTitle:after{content:"";position:absolute;right:10px;top:-25px;width:125px;height:116px;background:url("./pokedae-spaceship.png") center/contain no-repeat;filter:drop-shadow(5px 6px 0 rgba(0,0,0,.16));transform:rotate(7deg);pointer-events:none}
+.eventRadar>.sectionTitle{position:relative;min-height:250px;align-items:center;padding:30px 0}
+.eventRadar>.sectionTitle:before{content:"FIELD MISSION · ALL YEAR";position:absolute;left:8px;bottom:12px;width:300px;height:245px;display:flex;align-items:flex-end;padding:0 0 18px 215px;box-sizing:border-box;color:#fff;background:url("./pokedae-spaceship.png") left bottom/220px auto no-repeat,linear-gradient(135deg,transparent 0 55%,var(--red) 55% 59%,transparent 59%);filter:drop-shadow(7px 8px 0 rgba(17,17,17,.14));font-size:8px;font-weight:950;letter-spacing:.12em;white-space:nowrap;transform:rotate(-3deg);pointer-events:none}
+.eventRadar>.sectionTitle>span{position:relative;z-index:2;align-self:start}
+.eventRadar>.sectionTitle h2,.eventRadar>.sectionTitle>p{position:relative;z-index:2}
+@media(max-width:850px){.commandHero:before{left:-25px;bottom:430px;font-size:250px;opacity:.07;text-shadow:none}.briefingTitle{grid-template-columns:minmax(0,1fr) 230px!important;padding:32px!important}.briefingShip{width:235px}.waveHeader:after{right:55px;width:48px}.releaseTimeline>.sectionTitle{padding-right:120px}.eventRadar>.sectionTitle{display:grid;grid-template-columns:230px 1fr;min-height:230px}.eventRadar>.sectionTitle:before{width:220px;height:190px;padding-left:0;background-size:175px auto;font-size:0}.eventRadar>.sectionTitle>span{grid-column:2}.eventRadar>.sectionTitle h2,.eventRadar>.sectionTitle>p{grid-column:2}}
+@media(max-width:560px){.commandHero:before{left:-15px;bottom:auto;top:150px;font-size:190px;opacity:.055}.briefingTitle{display:block!important;min-height:400px;padding:28px 22px 155px!important;background:linear-gradient(155deg,#111216 0 70%,#ef2b2d 70% 100%)}.briefingTitle:before{left:auto;right:-15px;bottom:-25px;font-size:175px}.briefingTitle h2{font-size:48px}.briefingShip{position:absolute;right:-10px;bottom:-45px;width:205px}.briefingCopy>b{max-width:180px;line-height:1.4}.waveHeader:after{display:none}.releaseTimeline>.sectionTitle{padding-right:0}.releaseTimeline>.sectionTitle:after{display:none}.eventRadar>.sectionTitle{display:block;min-height:0;padding:185px 0 0}.eventRadar>.sectionTitle:before{top:-5px;bottom:auto;left:50%;width:220px;height:180px;background-size:165px auto;transform:translateX(-50%) rotate(-3deg)}.eventRadar>.sectionTitle>span,.eventRadar>.sectionTitle h2,.eventRadar>.sectionTitle>p{display:block}}
