@@ -59,3 +59,63 @@
   .homeNav .navLinks>a[href="/restock.html"],
   .homeNav .navLinks>a[href="/market.html"]{padding:7px 8px}
 }
+
+/* Site-wide navigation polish */
+.nav{position:relative}
+.nav:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,#ef2b2d55,transparent)}
+.navLinks{gap:6px!important}
+.navLinks>a{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:34px;
+  padding:8px 11px;
+  border:1px solid transparent;
+  border-radius:999px;
+  transition:transform .18s ease,background .18s ease,border-color .18s ease,box-shadow .18s ease,color .18s ease;
+}
+.navLinks>a:before{
+  content:"";
+  position:absolute;
+  left:11px;right:11px;bottom:5px;
+  height:2px;
+  border-radius:99px;
+  background:var(--red);
+  transform:scaleX(0);
+  transform-origin:center;
+  transition:transform .18s ease;
+}
+.navLinks>a:hover{
+  background:#fff;
+  border-color:#d7cfc3;
+  transform:translateY(-1px);
+  box-shadow:0 3px 0 #e2d9cd;
+}
+.navLinks>a:hover:before{transform:scaleX(1)}
+.navLinks>a[href="/restock.html"],
+.navLinks>a[href="/market.html"]{
+  background:#fff!important;
+  border-color:#d3cbc0!important;
+  box-shadow:none!important;
+}
+.navLinks>a[href="/market.html"]{border-color:var(--red)!important}
+.navLinks>a.activeNav{
+  background:var(--ink)!important;
+  color:#fff!important;
+  border-color:var(--ink)!important;
+  box-shadow:4px 4px 0 var(--red)!important;
+}
+.navLinks>a.activeNav:before{background:var(--yellow);transform:scaleX(1)}
+@media(max-width:800px){
+  .navLinks>a{
+    min-height:42px!important;
+    border:1px solid #d3cbc0!important;
+    background:#fff;
+    box-shadow:0 2px 0 #e3dbd0;
+  }
+  .navLinks>a.activeNav{
+    background:var(--ink)!important;
+    color:#fff!important;
+  }
+}
