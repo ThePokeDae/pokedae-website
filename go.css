@@ -107,3 +107,33 @@
   .goFamilyPortraitOnly{display:flex!important;min-height:0;margin-bottom:18px}
   .goFamilyPortraitOnly img{width:min(100%,560px)!important;max-width:560px!important}
 }
+
+/* Family section fallback redesign */
+.goFamily{grid-template-columns:.9fr 1.1fr!important;gap:28px!important;align-items:stretch!important;padding:62px 0 70px!important}
+.goFamilyAdventure{position:relative;min-height:390px;display:grid;place-items:center;overflow:hidden;background:linear-gradient(145deg,#111820,#1d2835);border:4px solid var(--ink);box-shadow:9px 9px 0 var(--yellow)}
+.goFamilyAdventure:before{content:"FAMILY GO";position:absolute;left:18px;bottom:10px;color:#ffffff0b;font-size:68px;font-weight:950;letter-spacing:-.06em}
+.goFamilyAdventure img{position:relative;z-index:3;width:78%;max-width:430px;filter:drop-shadow(0 18px 12px #0008)}
+.goFamilyOrbit{position:absolute;inset:0;display:grid;place-items:center}
+.goFamilyOrbit i{position:absolute;border-radius:50%;border:1px solid #ffffff1c;width:74%;aspect-ratio:1}
+.goFamilyOrbit i:nth-child(2){width:54%;border-color:#ef2b2d44}
+.goFamilyOrbit i:nth-child(3){width:34%;border-color:#ffd16666}
+.goFamilyAdventureBadge{position:absolute;left:16px;top:16px;z-index:4;padding:10px 12px;background:var(--yellow);border:3px solid var(--ink);box-shadow:4px 4px 0 var(--red);transform:rotate(-4deg)}
+.goFamilyAdventureBadge span{display:block;font-size:7px;font-weight:950;letter-spacing:.12em}.goFamilyAdventureBadge b{display:block;font-size:24px;line-height:.9}
+.goFamilyAdventureNote{position:absolute;right:14px;bottom:14px;z-index:4;padding:9px 10px;background:#fff;color:var(--ink);border-left:4px solid var(--red);font-size:7px;font-weight:950;letter-spacing:.08em}
+.goFamilyCopy{padding:6px 0 0!important}
+.goFamilyIntro{max-width:620px;margin:14px 0 18px;color:#625d56;font-size:14px;line-height:1.55}
+.goFamilyGrid{gap:9px!important;margin-top:14px!important}
+.goFamilyGrid article{min-height:112px;padding:14px!important;border:2px solid var(--ink)!important;box-shadow:4px 4px 0 #d8d0c5!important}
+.goFamilyGrid .rule{background:#111820!important;color:#fff!important;box-shadow:4px 4px 0 var(--red)!important}
+.goFamilyGrid .rule b{color:var(--yellow)!important}.goFamilyGrid .rule p{color:#d7dde4!important}
+@media(max-width:900px){
+ .goFamily{grid-template-columns:1fr!important}
+ .goFamilyAdventure{min-height:300px}
+ .goFamilyAdventure img{width:62%;max-width:380px}
+}
+@media(max-width:600px){
+ .goFamily{padding:46px 0 54px!important}
+ .goFamilyAdventure{min-height:260px}
+ .goFamilyAdventure img{width:76%}
+ .goFamilyGrid{grid-template-columns:1fr!important}
+}
