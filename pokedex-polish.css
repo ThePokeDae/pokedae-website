@@ -1,7 +1,48 @@
 /* PokéDaé Pokédex V2 - market ticker + exact hero image */
 .pdiMarketBar{position:sticky;top:0;z-index:1200;height:42px;display:flex;align-items:stretch;background:#090e16;color:#fff;border-bottom:2px solid var(--red);box-shadow:0 4px 14px #00000026;overflow:hidden;font-size:11px;font-weight:900;letter-spacing:.055em}.pdiMarketLabel{position:relative;z-index:2;flex:0 0 auto;display:flex;align-items:center;gap:6px;padding:0 18px;background:linear-gradient(100deg,#35281f,#15171c);border-right:1px solid var(--red);white-space:nowrap}.pdiMarketLabel i{width:7px;height:7px;border-radius:50%;background:#29cb79;box-shadow:0 0 8px #29cb79}.pdiMarketLabel span{color:var(--red)}.pdiMarketViewport{min-width:0;flex:1;overflow:hidden;display:flex;align-items:center}.pdiMarketTrack{display:flex;width:max-content;will-change:transform;animation:pdiDexMarketScroll 110s linear infinite}.pdiMarketTrack span{display:block;padding-right:4rem;white-space:nowrap}.pdiMarketBar:hover .pdiMarketTrack{animation-play-state:paused}.pdiMarketBar small{position:relative;z-index:2;display:flex;align-items:center;padding:0 16px;background:#090e16;color:#93a0b4;font-size:8px;white-space:nowrap;border-left:1px solid #253044}.marketProduct{color:#fff}.marketPrice{color:#ffd166}.marketUp{color:#39dc88}.marketDown{color:#ff5d64}@keyframes pdiDexMarketScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (min-width:801px){.nav{min-height:84px!important;height:84px!important}.nav .brand{flex:0 0 auto;white-space:nowrap}.navLinks{flex:1;justify-content:flex-end;gap:18px!important;white-space:nowrap}.navLinks a{font-size:10px!important;letter-spacing:.065em!important}.navLinks .pill{padding:13px 17px!important}}
-.exactHeroWrap{padding:20px 0 22px;border-bottom:1px solid #d8d1c6}.exactHeroImage{display:block;width:100%;height:auto;border-radius:0;box-shadow:none}.dexSection{padding-top:46px!important}.controlDeck{scroll-margin-top:60px}.sectionHead{margin-bottom:26px!important}.sectionHead h2{font-size:clamp(42px,5vw,66px)!important}.pokemonGrid{padding-top:18px!important}
-@media(max-width:800px){.pdiMarketLabel{padding:0 11px}.pdiMarketLabel span{display:none}.pdiMarketBar small{display:none}.pdiMarketTrack{animation-duration:90s}.exactHeroWrap{width:100%;padding:14px 0 18px;overflow:hidden}.exactHeroImage{width:100%;min-width:680px;max-width:none;transform:translateX(calc((100vw - 680px)/2));}.dexSection{padding-top:36px!important}}
-@media(max-width:540px){.exactHeroImage{min-width:620px;transform:translateX(calc((100vw - 620px)/2));}.sectionHead h2{font-size:44px!important}}
+.dexHeroSharp{display:grid;grid-template-columns:1.2fr .72fr .86fr;align-items:center;gap:34px;padding:26px 0 28px;border-bottom:1px solid #d8d1c6;position:relative}
+.dexHeroSharp:before{content:"";position:absolute;left:40%;top:18%;width:28%;height:64%;background:radial-gradient(circle,#ef2b2d1d 0 2px,transparent 2.6px);background-size:13px 13px;mask-image:linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent);pointer-events:none}
+.dexHeroCopy{position:relative;z-index:2}
+.dexHeroCopy h1{margin:0;font-size:clamp(70px,7vw,104px);line-height:.84;letter-spacing:-.075em;font-weight:950;white-space:nowrap}
+.dexHeroCopy h1 span{color:var(--red)}
+.dexHeroTag{margin:16px 0 12px;color:var(--red);font-size:11px;font-weight:950;letter-spacing:.28em}
+.dexHeroLead{max-width:500px;margin:0;color:#35322f;font-size:16px;line-height:1.55}
+.dexHeroActions{display:flex;gap:14px;margin-top:22px}
+.dexHeroActions a{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 20px;border-radius:11px;color:#fff;text-decoration:none;font-size:11px;font-weight:950;letter-spacing:.04em}
+.dexBrowse{background:var(--red)}
+.dexFilter{background:var(--ink)}
+
+.dexHeroDevice{position:relative;z-index:3;width:min(250px,100%);aspect-ratio:.66;margin:auto;border:6px solid #111;border-radius:40px 40px 52px 52px;background:linear-gradient(160deg,#f43a34 0 31%,#17191d 31.5% 70%,#efe9df 70.5% 100%);box-shadow:0 18px 24px #1b15102f,8px 8px 0 #1b1b1b;transform:rotate(7deg)}
+.dexHeroDevice:before{content:"";position:absolute;inset:13px;border:2px solid #ffffff75;border-radius:29px 29px 41px 41px}
+.dexSpeaker{position:absolute;top:14px;left:27%;right:27%;height:15px;border-radius:10px;background:#17191d;box-shadow:0 0 0 3px #ff5d58}
+.dexDeviceScreen{position:absolute;top:18%;left:15%;right:15%;height:43%;border:6px solid #15171b;border-radius:11px;background:#f7f2e7;box-shadow:inset 0 0 0 3px #ef2b2d,0 8px 12px #0004;overflow:hidden}
+.dexDeviceScreen>b{position:absolute;left:14px;top:11px;font-size:19px;font-style:italic}
+.bulbaSilhouette{position:absolute;left:50%;top:52%;width:88px;height:62px;transform:translate(-50%,-50%)}
+.bulbaSilhouette:before{content:"";position:absolute;left:23px;top:20px;width:43px;height:28px;border-radius:46% 48% 42% 45%;background:var(--red)}
+.bulbaSilhouette:after{content:"";position:absolute;left:29px;top:3px;width:31px;height:29px;background:var(--red);clip-path:polygon(50% 0,68% 25%,100% 16%,82% 48%,100% 67%,66% 70%,50% 100%,34% 70%,0 67%,18% 48%,0 16%,32% 25%)}
+.bulbaSilhouette i{position:absolute;background:var(--red);border-radius:50%}
+.bulbaSilhouette i:nth-child(1){width:15px;height:18px;left:20px;top:39px}
+.bulbaSilhouette i:nth-child(2){width:15px;height:18px;right:20px;top:39px}
+.bulbaSilhouette i:nth-child(3){width:17px;height:14px;left:7px;top:30px;transform:rotate(-18deg)}
+.bulbaSilhouette i:nth-child(4){width:17px;height:14px;right:7px;top:29px;transform:rotate(18deg)}
+.dexBarcode{position:absolute;left:18%;right:18%;bottom:11px;height:15px;background:repeating-linear-gradient(90deg,#ef2b2d 0 2px,transparent 2px 4px,#ef2b2d 4px 5px,transparent 5px 8px)}
+.dexLogoButton{position:absolute;left:50%;bottom:6%;width:64px;height:64px;transform:translateX(-50%);border:6px solid #151515;border-radius:50%;background:#f6f0e7;display:grid;place-items:center;box-shadow:0 3px 0 #8f8c87}
+.dexLogoButton img{width:47px;height:47px;object-fit:contain;border-radius:50%}
+
+.dexHeroCard{position:relative;z-index:3;min-height:246px;padding:22px 24px;border:1px solid #ded5ca;border-radius:18px;background:#fffaf2;box-shadow:0 14px 28px #2c211614;transform:rotate(1.1deg)}
+.dexHeroNo{margin:0;color:var(--red);font-size:17px;font-weight:950}
+.dexHeroCard h2{margin:4px 0 10px;font-size:23px;letter-spacing:-.03em}
+.dexHeroTypes{display:flex;gap:8px;margin-bottom:22px}
+.dexHeroTypes span{padding:5px 10px;border-radius:99px;color:#fff;font-size:9px;font-weight:950}
+.dexHeroTypes span:first-child{background:#6cb247}.dexHeroTypes span:last-child{background:#a33ea1}
+.dexFirstLabel{margin:0 0 10px;font-size:10px;font-weight:900}
+.dexSet,.dexCardNo,.dexIllus{margin:0 0 11px;font-size:11px}
+.dexSet strong,.dexCardNo strong{color:var(--red)}
+.dexSet i{padding:0 6px;color:#8c857d;font-style:normal}
+.dexIllus{margin-top:18px;color:#8c857d}.dexIllus em{color:#55504b}
+
+.dexSection{padding-top:46px!important}.controlDeck{scroll-margin-top:60px}.sectionHead{margin-bottom:26px!important}.sectionHead h2{font-size:clamp(42px,5vw,66px)!important}.pokemonGrid{padding-top:18px!important}
+@media(max-width:800px){.pdiMarketLabel{padding:0 11px}.pdiMarketLabel span{display:none}.pdiMarketBar small{display:none}.pdiMarketTrack{animation-duration:90s}.dexHeroSharp{grid-template-columns:1fr 1fr;gap:20px;padding:24px 0 28px}.dexHeroCopy{grid-column:1/-1}.dexHeroCopy h1{font-size:clamp(56px,16vw,82px)}.dexHeroTag{font-size:9px;letter-spacing:.2em}.dexHeroLead{font-size:15px}.dexHeroDevice{width:min(205px,42vw);transform:rotate(5deg)}.dexHeroCard{min-height:225px;padding:20px 18px;transform:none}.dexSection{padding-top:36px!important}}
+@media(max-width:540px){.dexHeroSharp{grid-template-columns:1fr;gap:22px}.dexHeroCopy,.dexHeroDevice,.dexHeroCard{grid-column:1}.dexHeroCopy h1{font-size:56px}.dexHeroActions{flex-wrap:wrap}.dexHeroActions a{flex:1;min-width:130px}.dexHeroDevice{width:190px}.dexHeroCard{width:100%;max-width:360px;margin:auto}.sectionHead h2{font-size:44px!important}}
 @media(prefers-reduced-motion:reduce){.pdiMarketTrack{animation:none;transform:none}.pdiMarketViewport{overflow-x:auto}}
