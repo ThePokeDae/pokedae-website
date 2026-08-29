@@ -11,3 +11,20 @@
 @keyframes radarTurn{to{transform:rotate(360deg)}}@keyframes pulseOut{0%{width:18%;height:18%;opacity:.85}100%{width:88%;height:88%;opacity:0}}@keyframes signalBlink{50%{opacity:.25}}
 @media(prefers-reduced-motion:reduce){.radarSweep,.pdi .radar:before,.pulseRing,.pdi .radar>small i{animation:none}}
 @media(max-width:800px){.pdi .radar{transform:none}.pdi .radar>b{font-size:50px}.pdi .radar>small{bottom:11%}}
+
+/* Desktop nav hotfix after Pokédex was added */
+@media (min-width:801px){
+  .nav.shell{width:min(1320px,calc(100% - 56px))!important;height:88px!important;min-height:88px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:22px!important}
+  .nav .brand{flex:0 0 auto!important;white-space:nowrap!important}
+  .nav .brand img{width:40px!important;height:40px!important}
+  .nav .brand b{font-size:18px!important}
+  .navLinks{flex:1 1 auto!important;display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:22px!important;white-space:nowrap!important;font-size:10px!important;letter-spacing:.07em!important}
+  .navLinks>a{display:inline-flex!important;align-items:center!important;justify-content:center!important;white-space:nowrap!important}
+  .navLinks>a.pill{padding:13px 18px!important}
+}
+@media (min-width:801px) and (max-width:1180px){
+  .nav.shell{width:min(100% - 28px,1320px)!important;gap:14px!important}
+  .navLinks{gap:14px!important;font-size:9px!important;letter-spacing:.045em!important}
+  .navLinks>a.pill{padding:11px 14px!important}
+  .nav .brand b{font-size:16px!important}
+}
