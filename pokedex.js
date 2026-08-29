@@ -17,6 +17,7 @@ const NAME_FIXES={
 const setCache = new Map();
 const debutCache = new Map();
 const detailCache = new Map();
+const cardDetailCache = new Map();
 let allPokemon=[]; let filtered=[]; let visibleCount=40; let typeIds=null;
 
 const grid=document.querySelector('#pokemonGrid');
@@ -119,7 +120,7 @@ function cardNameMatches(cardName, pokemonName){
 
 async function resolveDebut(p){
   if(debutCache.has(p.id)) return debutCache.get(p.id);
-  const stored=localStorage.getItem(`pokedae-debut-v3-${p.id}`);
+  const stored=localStorage.getItem(`pokedae-debut-v2-${p.id}`);
   if(stored){try{const parsed=JSON.parse(stored);debutCache.set(p.id,parsed);return parsed}catch{}}
   const pokemonName=displayName(p.name);
   const promise=(async()=>{
@@ -142,8 +143,8 @@ async function resolveDebut(p){
     if(!first) return null;
     const set=await getSet(setIdFromCardId(first.id));
     const full=await fetch(`${TCGDEX}/cards/${encodeURIComponent(first.id)}`).then(x=>x.ok?x.json():null).catch(()=>null);
-    const result={id:first.id,name:first.name,image:first.image,localId:first.localId,set:set?.name||full?.set?.name||'Unknown set',date:set?.releaseDate||null,illustrator:full?.illustrator||null,rarity:full?.rarity||null,abilities:Array.isArray(full?.abilities)?full.abilities:[],attacks:Array.isArray(full?.attacks)?full.attacks:[]};
-    try{localStorage.setItem(`pokedae-debut-v3-${p.id}`,JSON.stringify(result))}catch{}
+    const result={id:first.id,name:first.name,image:first.image,localId:first.localId,set:set?.name||full?.set?.name||'Unknown set',date:set?.releaseDate||null,illustrator:full?.illustrator||null,rarity:full?.rarity||null};
+    try{localStorage.setItem(`pokedae-debut-v2-${p.id}`,JSON.stringify(result))}catch{}
     return result;
   })();
   debutCache.set(p.id,promise);
@@ -177,17 +178,30 @@ async function getPokemonDetails(id){
   const p=Promise.all([fetch(`${POKEAPI}/pokemon/${id}`).then(r=>r.json()),fetch(`${POKEAPI}/pokemon-species/${id}`).then(r=>r.json())]);
   detailCache.set(id,p);return p;
 }
+async function getDebutCardMoves(debut){
+  if(!debut?.id) return 'None listed';
+  if(cardDetailCache.has(debut.id)) return cardDetailCache.get(debut.id);
+  const promise=fetch(TCGDEX+'/cards/'+encodeURIComponent(debut.id))
+    .then(r=>r.ok?r.json():null)
+    .then(full=>{
+      const abilityNames=Array.isArray(full?.abilities)?full.abilities.map(x=>x?.name).filter(Boolean):[];
+      const attackNames=Array.isArray(full?.attacks)?full.attacks.map(x=>x?.name).filter(Boolean):[];
+      return [...new Set([...abilityNames,...attackNames])].join(', ')||'None listed';
+    })
+    .catch(()=> 'None listed');
+  cardDetailCache.set(debut.id,promise);
+  return promise;
+}
+
 async function openPokemon(id){
   const p=allPokemon.find(x=>x.id===id)||{id,name:'pokemon'};
   modalContent.innerHTML=`<div class="detailLoading"><b>${dex(id)} · ${escapeHTML(displayName(p.name))}</b><span>Pulling the first English TCG card and Pokédex data…</span></div>`;
   modal.showModal();
   try{
     const [debut,[pokemon,species]]=await Promise.all([resolveDebut(p),getPokemonDetails(id)]);
+    const cardAbilities=await getDebutCardMoves(debut);
     const flavor=(species.flavor_text_entries.find(x=>x.language.name==='en')?.flavor_text||'No Pokédex description available.').replace(/[\n\f]/g,' ');
     const genus=species.genera.find(x=>x.language.name==='en')?.genus||'Pokémon';
-    const tcgAbilityNames=debut?.abilities?.map(x=>x?.name).filter(Boolean)||[];
-    const tcgAttackNames=debut?.attacks?.map(x=>x?.name).filter(Boolean)||[];
-    const cardAbilities=[...new Set([...tcgAbilityNames,...tcgAttackNames])].join(', ')||'None listed';
     const types=pokemon.types.map(x=>x.type.name);
     modalContent.innerHTML=`<div class="detailHero">
       <div class="detailVisual tcg"><span class="firstCardStamp">FIRST ENGLISH TCG CARD</span>${debut?`<img src="${cardImage(debut.image,'high')}" alt="${escapeHTML(debut.name)} from ${escapeHTML(debut.set)}">`:'<div class="noCard">TCG debut card unavailable</div>'}</div>
