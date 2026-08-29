@@ -38,6 +38,7 @@ function dex(id){return `#${String(id).padStart(4,'0')}`}
 function generationFor(id){return GENERATIONS.findIndex(g=>id>=g.min&&id<=g.max)+1}
 function cardImage(base, quality='high'){return base ? `${base}/${quality}.webp` : ''}
 function escapeHTML(v=''){return String(v).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function withTimeout(promise,ms,fallback=null){return Promise.race([promise,new Promise(resolve=>setTimeout(()=>resolve(fallback),ms))])}
 function setupFilters(){GENERATIONS.forEach((g,i)=>generationFilter.insertAdjacentHTML('beforeend',`<option value="${i+1}">${g.name}</option>`));TYPES.forEach(t=>typeFilter.insertAdjacentHTML('beforeend',`<option value="${t}">${displayName(t)}</option>`))}
 
 async function init(){
@@ -167,7 +168,7 @@ generationFilter.addEventListener('change',applyFilters);
 sortFilter.addEventListener('change',applyFilters);
 typeFilter.addEventListener('change',async e=>{await loadTypeIds(e.target.value);applyFilters()});
 document.querySelector('#clearFilters').addEventListener('click',()=>{searchInput.value='';generationFilter.value='all';typeFilter.value='all';sortFilter.value='number-asc';typeIds=null;applyFilters()});
-document.querySelector('#randomBtn').addEventListener('click',()=>openPokemon(Math.floor(Math.random()*MAX_DEX)+1));
+document.querySelector('#randomBtn').addEventListener('click',()=>{const pool=filtered.length?filtered:allPokemon;if(!pool.length)return;const pick=pool[Math.floor(Math.random()*pool.length)];openPokemon(pick.id)});
 document.addEventListener('keydown',e=>{if(e.key==='/'&&document.activeElement.tagName!=='INPUT'){e.preventDefault();searchInput.focus()}if(e.key==='Escape'&&modal.open)modal.close()});
 grid.addEventListener('click',e=>{const card=e.target.closest('.pokemonCard');if(card)openPokemon(Number(card.dataset.id))});
 grid.addEventListener('keydown',e=>{const card=e.target.closest('.pokemonCard');if(card&&(e.key==='Enter'||e.key===' ')){e.preventDefault();openPokemon(Number(card.dataset.id))}});
@@ -195,23 +196,44 @@ async function getDebutCardMoves(debut){
 
 async function openPokemon(id){
   const p=allPokemon.find(x=>x.id===id)||{id,name:'pokemon'};
-  modalContent.innerHTML=`<div class="detailLoading"><b>${dex(id)} · ${escapeHTML(displayName(p.name))}</b><span>Pulling the first English TCG card and Pokédex data…</span></div>`;
-  modal.showModal();
+  modalContent.innerHTML=`<div class="detailLoading"><b>${dex(id)} · ${escapeHTML(displayName(p.name))}</b><span>Loading Pokémon details…</span></div>`;
+  if(!modal.open) modal.showModal();
+
   try{
-    const [debut,[pokemon,species]]=await Promise.all([resolveDebut(p),getPokemonDetails(id)]);
-    const cardAbilities=await getDebutCardMoves(debut);
+    const details=await withTimeout(getPokemonDetails(id),8000,null);
+    if(!details) throw new Error('Pokédex details timed out');
+    const [pokemon,species]=details;
     const flavor=(species.flavor_text_entries.find(x=>x.language.name==='en')?.flavor_text||'No Pokédex description available.').replace(/[\n\f]/g,' ');
     const genus=species.genera.find(x=>x.language.name==='en')?.genus||'Pokémon';
     const types=pokemon.types.map(x=>x.type.name);
+
     modalContent.innerHTML=`<div class="detailHero">
-      <div class="detailVisual tcg"><span class="firstCardStamp">FIRST ENGLISH TCG CARD</span>${debut?`<img src="${cardImage(debut.image,'high')}" alt="${escapeHTML(debut.name)} from ${escapeHTML(debut.set)}">`:'<div class="noCard">TCG debut card unavailable</div>'}</div>
+      <div class="detailVisual tcg" id="modalCardVisual"><span class="firstCardStamp">FIRST ENGLISH TCG CARD</span><div class="noCard">Loading debut card…</div></div>
       <div class="detailCopy"><span class="detailNumber">${dex(id)} · GENERATION ${generationFor(id)}</span><h2>${escapeHTML(displayName(p.name))}</h2>
         <div class="types">${types.map(t=>`<span class="typeBadge type-${t}">${t}</span>`).join('')}</div>
-        ${debut?`<div class="debutPanel"><small>TCG DEBUT</small><strong>${escapeHTML(debut.set)} · ${debut.date?debut.date.slice(0,4):'DATE UNKNOWN'}</strong><span>Card ${escapeHTML(debut.localId)}${debut.illustrator?` · Illustrated by ${escapeHTML(debut.illustrator)}`:''}</span></div>`:''}
+        <div class="debutPanel" id="modalDebutPanel"><small>TCG DEBUT</small><strong>Loading card data…</strong><span>Pokédex details are ready.</span></div>
         <p class="flavor">${escapeHTML(flavor)}</p>
-        <div class="detailFacts"><div class="fact"><span>Category</span><b>${escapeHTML(genus.replace(' Pokémon',''))}</b></div><div class="fact"><span>Height</span><b>${(pokemon.height/10).toFixed(1)} m</b></div><div class="fact"><span>Weight</span><b>${(pokemon.weight/10).toFixed(1)} kg</b></div><div class="fact"><span>Card Abilities</span><b>${escapeHTML(cardAbilities)}</b></div></div>
+        <div class="detailFacts"><div class="fact"><span>Category</span><b>${escapeHTML(genus.replace(' Pokémon',''))}</b></div><div class="fact"><span>Height</span><b>${(pokemon.height/10).toFixed(1)} m</b></div><div class="fact"><span>Weight</span><b>${(pokemon.weight/10).toFixed(1)} kg</b></div><div class="fact"><span>Card Abilities</span><b id="modalCardAbilities">Loading…</b></div></div>
       </div></div>
       <div class="stats"><h3>Base Stats</h3>${pokemon.stats.map(st=>`<div class="statRow"><span>${escapeHTML(displayName(st.stat.name))}</span><b>${st.base_stat}</b><div class="statTrack"><i style="width:${Math.min(100,st.base_stat/2)}%"></i></div></div>`).join('')}</div>`;
+
+    const debut=await withTimeout(resolveDebut(p),7000,null);
+    if(!modal.open) return;
+
+    const visual=document.querySelector('#modalCardVisual');
+    const panel=document.querySelector('#modalDebutPanel');
+    const abilityEl=document.querySelector('#modalCardAbilities');
+
+    if(debut){
+      if(visual) visual.innerHTML=`<span class="firstCardStamp">FIRST ENGLISH TCG CARD</span><img src="${cardImage(debut.image,'high')}" alt="${escapeHTML(debut.name)} from ${escapeHTML(debut.set)}">`;
+      if(panel) panel.innerHTML=`<small>TCG DEBUT</small><strong>${escapeHTML(debut.set)} · ${debut.date?debut.date.slice(0,4):'DATE UNKNOWN'}</strong><span>Card ${escapeHTML(debut.localId)}${debut.illustrator?` · Illustrated by ${escapeHTML(debut.illustrator)}`:''}</span>`;
+      const cardAbilities=await withTimeout(getDebutCardMoves(debut),4500,'None listed');
+      if(abilityEl) abilityEl.textContent=cardAbilities;
+    }else{
+      if(visual) visual.innerHTML='<span class="firstCardStamp">FIRST ENGLISH TCG CARD</span><div class="noCard">TCG debut card unavailable</div>';
+      if(panel) panel.innerHTML='<small>TCG DEBUT</small><strong>Card data unavailable</strong><span>Try this entry again later.</span>';
+      if(abilityEl) abilityEl.textContent='None listed';
+    }
   }catch{
     modalContent.innerHTML=`<div class="detailLoading"><b>${dex(id)} · ${escapeHTML(displayName(p.name))}</b><span>That entry could not be loaded right now. Try again in a moment.</span></div>`;
   }
