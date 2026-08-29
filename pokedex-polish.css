@@ -40,3 +40,77 @@
 @media(max-width:800px){.pdiMarketLabel{padding:0 11px}.pdiMarketLabel span{display:none}.pdiMarketBar small{display:none}.pdiMarketTrack{animation-duration:80s}.dexHeroSharp{grid-template-columns:1fr 1fr;gap:20px;padding:24px 0 28px}.dexHeroCopy{grid-column:1/-1}.dexHeroCopy h1{font-size:clamp(56px,16vw,82px)}.dexHeroTag{font-size:9px;letter-spacing:.2em}.dexHeroLead{font-size:15px}.dexHeroDevice{width:min(205px,42vw);transform:rotate(5deg)}.dexHeroCard{min-height:225px;padding:20px 18px;transform:none}.dexSection{padding-top:36px!important}}
 @media(max-width:540px){.dexHeroSharp{grid-template-columns:1fr;gap:22px}.dexHeroCopy,.dexHeroDevice,.dexHeroCard{grid-column:1}.dexHeroCopy h1{font-size:56px}.dexHeroActions{flex-wrap:wrap}.dexHeroActions a{flex:1;min-width:130px}.dexHeroDevice{width:190px}.dexHeroCard{width:100%;max-width:360px;margin:auto}.sectionHead h2{font-size:44px!important}}
 @media(prefers-reduced-motion:reduce){.pdiMarketTrack{animation:none;transform:none}.pdiMarketViewport{overflow-x:auto}}
+
+/* Match PokéDaé site-wide navigation */
+.nav{position:relative;z-index:20}
+.nav:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,#ef2b2d55,transparent)}
+.navLinks{gap:7px!important}
+.navLinks>a{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:35px;
+  padding:8px 11px!important;
+  border:1px solid #d4ccc1!important;
+  border-radius:999px!important;
+  background:#fbf8f2!important;
+  color:#101113!important;
+  box-shadow:0 2px 0 #e0d7cc;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,color .18s ease;
+}
+.navLinks>a:before{
+  content:"";
+  position:absolute;
+  left:10px;right:10px;bottom:5px;
+  height:2px;
+  border-radius:999px;
+  background:#ef2b2d;
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform .18s ease;
+}
+.navLinks>a:hover{
+  transform:translateY(-2px);
+  border-color:#101113!important;
+  box-shadow:0 4px 0 #d9d0c5;
+}
+.navLinks>a:hover:before{transform:scaleX(1)}
+.navLinks>a[href="/restock.html"]{border-color:#bfc7c1!important;box-shadow:0 2px 0 #32c97655}
+.navLinks>a[href="/market.html"]{border-color:#ef2b2d!important;box-shadow:0 2px 0 #ef2b2d44}
+.navLinks>a[href="/30th.html"]{border-color:#d8b84a!important;box-shadow:0 2px 0 #ffd16688}
+.navLinks>a[href="/signup.html"]{
+  background:#101113!important;
+  color:#fff!important;
+  border-color:#101113!important;
+  box-shadow:4px 4px 0 #ef2b2d!important;
+}
+.navLinks>a[href="/signup.html"]:before{background:#ffd166}
+.navLinks>a.active{
+  background:#ef2b2d!important;
+  color:#fff!important;
+  border-color:#101113!important;
+  box-shadow:4px 4px 0 #101113!important;
+}
+.navLinks>a.active:before{background:#ffd166;transform:scaleX(1)}
+.siteAddress{
+  position:relative;
+  padding:5px 10px 5px 5px;
+  border-radius:999px;
+  transition:background .18s ease,transform .18s ease;
+}
+.siteAddress:hover{background:#fff;transform:translateY(-1px)}
+@media(max-width:1180px) and (min-width:801px){
+  .siteAddress b{display:none}
+  .navLinks{gap:5px!important;font-size:7.6px!important}
+  .navLinks>a{padding:7px 8px!important}
+}
+@media(max-width:800px){
+  .nav{height:auto;min-height:76px;align-items:flex-start;gap:12px;padding:15px 0;flex-wrap:wrap}
+  .navLinks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));flex:1 0 100%;gap:8px!important;width:100%}
+  .navLinks>a{min-height:42px!important;padding:10px 9px!important;background:#fff!important;box-shadow:0 2px 0 #ded5ca!important}
+  .navLinks>a[href="/signup.html"]{background:#101113!important;color:#fff!important;box-shadow:3px 3px 0 #ef2b2d!important}
+  .navLinks>a.active{background:#ef2b2d!important;color:#fff!important}
+}
