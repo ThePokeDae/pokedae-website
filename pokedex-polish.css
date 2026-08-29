@@ -18,14 +18,17 @@
 .dexSpeaker{position:absolute;top:14px;left:27%;right:27%;height:15px;border-radius:10px;background:#17191d;box-shadow:0 0 0 3px #ff5d58}
 .dexDeviceScreen{position:absolute;top:18%;left:15%;right:15%;height:43%;border:6px solid #15171b;border-radius:11px;background:#f7f2e7;box-shadow:inset 0 0 0 3px #ef2b2d,0 8px 12px #0004;overflow:hidden}
 .dexDeviceScreen>b{position:absolute;left:14px;top:11px;font-size:19px;font-style:italic}
-.bulbaSilhouette{position:absolute;left:50%;top:52%;width:88px;height:62px;transform:translate(-50%,-50%)}
-.bulbaSilhouette:before{content:"";position:absolute;left:23px;top:20px;width:43px;height:28px;border-radius:46% 48% 42% 45%;background:#67b84b}
-.bulbaSilhouette:after{content:"";position:absolute;left:29px;top:3px;width:31px;height:29px;background:#67b84b;clip-path:polygon(50% 0,68% 25%,100% 16%,82% 48%,100% 67%,66% 70%,50% 100%,34% 70%,0 67%,18% 48%,0 16%,32% 25%)}
-.bulbaSilhouette i{position:absolute;background:#67b84b;border-radius:50%}
-.bulbaSilhouette i:nth-child(1){width:15px;height:18px;left:20px;top:39px}
-.bulbaSilhouette i:nth-child(2){width:15px;height:18px;right:20px;top:39px}
-.bulbaSilhouette i:nth-child(3){width:17px;height:14px;left:7px;top:30px;transform:rotate(-18deg)}
-.bulbaSilhouette i:nth-child(4){width:17px;height:14px;right:7px;top:29px;transform:rotate(18deg)}
+.bulbaSilhouette{position:absolute;left:50%;top:53%;width:96px;height:62px;transform:translate(-50%,-50%)}
+.bulbaSilhouette:before{content:"";position:absolute;left:19px;top:24px;width:58px;height:27px;background:#67b84b;border-radius:44% 48% 40% 42%;clip-path:polygon(0 40%,10% 18%,27% 12%,38% 0,54% 10%,73% 15%,89% 31%,100% 49%,90% 63%,79% 66%,75% 92%,61% 100%,49% 84%,35% 91%,23% 100%,14% 88%,17% 66%,4% 61%)}
+.bulbaSilhouette:after{content:"";position:absolute;left:36px;top:4px;width:41px;height:31px;background:#67b84b;clip-path:polygon(47% 0,61% 13%,80% 8%,72% 28%,100% 35%,78% 49%,91% 69%,66% 65%,56% 100%,42% 70%,19% 82%,25% 58%,0 49%,24% 36%,17% 18%,38% 24%)}
+.bulbaSilhouette i{position:absolute;background:#67b84b}
+.bulbaSilhouette i:nth-child(1){width:22px;height:19px;left:3px;top:27px;border-radius:58% 42% 55% 45%;transform:rotate(-10deg)}
+.bulbaSilhouette i:nth-child(1):before,.bulbaSilhouette i:nth-child(1):after{content:"";position:absolute;top:-7px;width:9px;height:13px;background:#67b84b;clip-path:polygon(50% 0,100% 100%,0 78%)}
+.bulbaSilhouette i:nth-child(1):before{left:2px;transform:rotate(-12deg)}
+.bulbaSilhouette i:nth-child(1):after{right:1px;transform:scaleX(-1) rotate(-12deg)}
+.bulbaSilhouette i:nth-child(2){width:13px;height:18px;left:24px;top:43px;border-radius:45% 45% 55% 55%;transform:rotate(9deg)}
+.bulbaSilhouette i:nth-child(3){width:13px;height:18px;left:55px;top:43px;border-radius:45% 45% 55% 55%;transform:rotate(-8deg)}
+.bulbaSilhouette i:nth-child(4){width:17px;height:10px;right:3px;top:34px;border-radius:50%;transform:rotate(12deg)}
 .dexBarcode{position:absolute;left:18%;right:18%;bottom:11px;height:15px;background:repeating-linear-gradient(90deg,#ef2b2d 0 2px,transparent 2px 4px,#ef2b2d 4px 5px,transparent 5px 8px)}
 .dexLogoButton{position:absolute;left:50%;bottom:6%;width:64px;height:64px;transform:translateX(-50%);border:6px solid #151515;border-radius:50%;background:#f6f0e7;display:grid;place-items:center;box-shadow:0 3px 0 #8f8c87}
 .dexLogoButton img{width:47px;height:47px;object-fit:contain;border-radius:50%}
