@@ -24,3 +24,23 @@
 
 /* Standardized ticker speed: match News */
 @media(max-width:700px){.tickerTrack{animation-duration:80s}}
+
+/* Core HQ nav visibility */
+.navLinks{gap:9px;font-size:8.8px}
+.navLinks a[href="/restock.html"],.navLinks a[href="/market.html"]{
+  display:inline-flex!important;align-items:center;justify-content:center;
+  padding:9px 11px;border:1px solid #cfc7bb;border-radius:999px;background:#fff;
+}
+.navLinks a[href="/market.html"]{border-color:var(--red);box-shadow:inset 0 -2px 0 var(--red)}
+@media(max-width:1180px) and (min-width:801px){
+  .siteAddress b{display:none}
+  .navLinks{gap:7px;font-size:8px}
+  .navLinks a{letter-spacing:.03em}
+  .navLinks a[href="/restock.html"],.navLinks a[href="/market.html"]{padding:8px 9px}
+  .navLinks a.dark{padding:10px 12px}
+}
+@media(max-width:800px){
+  .navLinks a[href="/restock.html"],.navLinks a[href="/market.html"]{
+    display:inline-flex!important;
+  }
+}
