@@ -43,7 +43,17 @@ function displayName(slug){
 }
 function dex(id){return `#${String(id).padStart(4,'0')}`}
 function generationFor(id){return GENERATIONS.findIndex(g=>id>=g.min&&id<=g.max)+1}
-function cardImage(base, quality='high'){return base ? `${base}/${quality}.webp` : ''}
+function cardImage(base, quality='high'){
+  if(!base) return '';
+  if(base.includes('images.pokemontcg.io')){
+    if(quality==='high' && /\.png(?:\?.*)?$/.test(base) && !/_hires\.png(?:\?.*)?$/.test(base)){
+      return base.replace(/\.png(\?.*)?$/, '_hires.png$1');
+    }
+    return base;
+  }
+  if(/\.(?:png|jpe?g|webp)(?:\?.*)?$/i.test(base)) return base;
+  return `${base}/${quality}.webp`;
+}
 function escapeHTML(v=''){return String(v).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
 function withTimeout(promise,ms,fallback=null){return Promise.race([promise,new Promise(resolve=>setTimeout(()=>resolve(fallback),ms))])}
 function setupFilters(){GENERATIONS.forEach((g,i)=>generationFilter.insertAdjacentHTML('beforeend',`<option value="${i+1}">${g.name}</option>`));TYPES.forEach(t=>typeFilter.insertAdjacentHTML('beforeend',`<option value="${t}">${displayName(t)}</option>`))}
@@ -180,6 +190,27 @@ function cardNameMatches(cardName, pokemonName){
   return a===b || a===`dark ${b}` || a===`light ${b}` || a.endsWith(`'s ${b}`) || a.endsWith(`s ${b}`);
 }
 
+async function resolveDebutBriefPTCG(p){
+  const q='nationalPokedexNumbers:'+p.id;
+  const url=POKEMONTCG+'/cards?q='+encodeURIComponent(q)+'&orderBy='+encodeURIComponent('set.releaseDate,number')+'&pageSize=1';
+  const response=await fetch(url);
+  if(!response.ok) return null;
+  const payload=await response.json();
+  const card=payload?.data?.[0];
+  if(!card?.images?.small) return null;
+  return {
+    id:card.id,
+    name:card.name,
+    image:card.images.small,
+    localId:card.number,
+    set:card.set?.name||'Unknown set',
+    date:card.set?.releaseDate?card.set.releaseDate.replaceAll('/','-'):null,
+    illustrator:card.artist||null,
+    rarity:card.rarity||null,
+    source:'ptcg'
+  };
+}
+
 async function resolveDebutBrief(p){
   if(gridDebutCache.has(p.id)) return gridDebutCache.get(p.id);
 
@@ -196,34 +227,45 @@ async function resolveDebutBrief(p){
   }catch{}
 
   const pokemonName=displayName(p.name);
-  const promise=(async()=>{
-    let cards=[];
-    const exact=await fetch(TCGDEX+'/cards?name='+encodeURIComponent('eq:'+pokemonName));
-    if(exact.ok) cards=await exact.json();
 
-    if(!cards.length){
-      const loose=await fetch(TCGDEX+'/cards?name='+encodeURIComponent(pokemonName));
-      if(loose.ok){
-        const all=await loose.json();
-        cards=all.filter(c=>c.image&&cardNameMatches(c.name,pokemonName));
-      }
+  const promise=(async()=>{
+    // Mobile gets an independent source first so TCGdex cannot stall the card wall.
+    if(IS_MOBILE){
+      const ptcg=await withTimeout(resolveDebutBriefPTCG(p),6000,null);
+      if(ptcg) return ptcg;
     }
 
-    const first=cards.find(c=>c.image)||null;
-    if(!first) return null;
+    try{
+      let cards=[];
+      const exact=await fetch(TCGDEX+'/cards?name='+encodeURIComponent('eq:'+pokemonName));
+      if(exact.ok) cards=await exact.json();
 
-    const brief={
-      id:first.id,
-      name:first.name,
-      image:first.image,
-      localId:first.localId,
-      set:'',
-      date:null,
-      illustrator:null,
-      rarity:null
-    };
-    gridDebutCache.set(p.id,brief);
-    return brief;
+      if(!cards.length){
+        const loose=await fetch(TCGDEX+'/cards?name='+encodeURIComponent(pokemonName));
+        if(loose.ok){
+          const all=await loose.json();
+          cards=all.filter(c=>c.image&&cardNameMatches(c.name,pokemonName));
+        }
+      }
+
+      const first=cards.find(c=>c.image)||null;
+      if(first){
+        return {
+          id:first.id,
+          name:first.name,
+          image:first.image,
+          localId:first.localId,
+          set:'',
+          date:null,
+          illustrator:null,
+          rarity:null,
+          source:'tcgdex'
+        };
+      }
+    }catch{}
+
+    // Desktop also gets the same fallback if TCGdex fails.
+    return await withTimeout(resolveDebutBriefPTCG(p),6000,null);
   })();
 
   gridDebutCache.set(p.id,promise);
@@ -249,6 +291,23 @@ async function resolveDebut(p){
     const first=await resolveDebutBrief(p);
     if(!first) return null;
 
+    if(first.source==='ptcg'){
+      const result={
+        id:first.id,
+        name:first.name,
+        image:first.image,
+        localId:first.localId,
+        set:first.set||'Unknown set',
+        date:first.date||null,
+        illustrator:first.illustrator||null,
+        rarity:first.rarity||null,
+        source:'ptcg'
+      };
+      try{localStorage.setItem(key,JSON.stringify(result))}catch{}
+      gridDebutCache.set(p.id,result);
+      return result;
+    }
+
     const full=await fetch(TCGDEX+'/cards/'+encodeURIComponent(first.id))
       .then(x=>x.ok?x.json():null)
       .catch(()=>null);
@@ -270,7 +329,8 @@ async function resolveDebut(p){
       set:setName,
       date:releaseDate,
       illustrator:full?.illustrator||null,
-      rarity:full?.rarity||null
+      rarity:full?.rarity||null,
+      source:'tcgdex'
     };
 
     try{localStorage.setItem(key,JSON.stringify(result))}catch{}
@@ -335,6 +395,9 @@ async function getPokemonDetails(id){
 }
 async function getDebutCardInfo(debut){
   if(!debut?.id) return null;
+  if(debut.source==='ptcg'){
+    return fetch(POKEMONTCG+'/cards/'+encodeURIComponent(debut.id)).then(r=>r.ok?r.json():null).then(payload=>{const full=payload?.data;if(!full)return null;return {moves:[...new Set([...(full.abilities||[]).map(x=>x?.name).filter(Boolean),...(full.attacks||[]).map(x=>x?.name).filter(Boolean)])],hp:full.hp||null,weaknesses:Array.isArray(full.weaknesses)?full.weaknesses:[],retreat:typeof full.convertedRetreatCost==='number'?full.convertedRetreatCost:null};}).catch(()=>null);
+  }
   if(cardDetailCache.has(debut.id)) return cardDetailCache.get(debut.id);
   const promise=fetch(TCGDEX+'/cards/'+encodeURIComponent(debut.id))
     .then(r=>r.ok?r.json():null)
