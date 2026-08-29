@@ -119,7 +119,7 @@ function cardNameMatches(cardName, pokemonName){
 
 async function resolveDebut(p){
   if(debutCache.has(p.id)) return debutCache.get(p.id);
-  const stored=localStorage.getItem(`pokedae-debut-v2-${p.id}`);
+  const stored=localStorage.getItem(`pokedae-debut-v3-${p.id}`);
   if(stored){try{const parsed=JSON.parse(stored);debutCache.set(p.id,parsed);return parsed}catch{}}
   const pokemonName=displayName(p.name);
   const promise=(async()=>{
@@ -142,8 +142,8 @@ async function resolveDebut(p){
     if(!first) return null;
     const set=await getSet(setIdFromCardId(first.id));
     const full=await fetch(`${TCGDEX}/cards/${encodeURIComponent(first.id)}`).then(x=>x.ok?x.json():null).catch(()=>null);
-    const result={id:first.id,name:first.name,image:first.image,localId:first.localId,set:set?.name||full?.set?.name||'Unknown set',date:set?.releaseDate||null,illustrator:full?.illustrator||null,rarity:full?.rarity||null};
-    try{localStorage.setItem(`pokedae-debut-v2-${p.id}`,JSON.stringify(result))}catch{}
+    const result={id:first.id,name:first.name,image:first.image,localId:first.localId,set:set?.name||full?.set?.name||'Unknown set',date:set?.releaseDate||null,illustrator:full?.illustrator||null,rarity:full?.rarity||null,abilities:Array.isArray(full?.abilities)?full.abilities:[],attacks:Array.isArray(full?.attacks)?full.attacks:[]};
+    try{localStorage.setItem(`pokedae-debut-v3-${p.id}`,JSON.stringify(result))}catch{}
     return result;
   })();
   debutCache.set(p.id,promise);
@@ -185,7 +185,9 @@ async function openPokemon(id){
     const [debut,[pokemon,species]]=await Promise.all([resolveDebut(p),getPokemonDetails(id)]);
     const flavor=(species.flavor_text_entries.find(x=>x.language.name==='en')?.flavor_text||'No Pokédex description available.').replace(/[\n\f]/g,' ');
     const genus=species.genera.find(x=>x.language.name==='en')?.genus||'Pokémon';
-    const abilities=pokemon.abilities.map(x=>displayName(x.ability.name)).join(', ');
+    const tcgAbilityNames=debut?.abilities?.map(x=>x?.name).filter(Boolean)||[];
+    const tcgAttackNames=debut?.attacks?.map(x=>x?.name).filter(Boolean)||[];
+    const cardAbilities=[...new Set([...tcgAbilityNames,...tcgAttackNames])].join(', ')||'None listed';
     const types=pokemon.types.map(x=>x.type.name);
     modalContent.innerHTML=`<div class="detailHero">
       <div class="detailVisual tcg"><span class="firstCardStamp">FIRST ENGLISH TCG CARD</span>${debut?`<img src="${cardImage(debut.image,'high')}" alt="${escapeHTML(debut.name)} from ${escapeHTML(debut.set)}">`:'<div class="noCard">TCG debut card unavailable</div>'}</div>
@@ -193,7 +195,7 @@ async function openPokemon(id){
         <div class="types">${types.map(t=>`<span class="typeBadge type-${t}">${t}</span>`).join('')}</div>
         ${debut?`<div class="debutPanel"><small>TCG DEBUT</small><strong>${escapeHTML(debut.set)} · ${debut.date?debut.date.slice(0,4):'DATE UNKNOWN'}</strong><span>Card ${escapeHTML(debut.localId)}${debut.illustrator?` · Illustrated by ${escapeHTML(debut.illustrator)}`:''}</span></div>`:''}
         <p class="flavor">${escapeHTML(flavor)}</p>
-        <div class="detailFacts"><div class="fact"><span>Category</span><b>${escapeHTML(genus.replace(' Pokémon',''))}</b></div><div class="fact"><span>Height</span><b>${(pokemon.height/10).toFixed(1)} m</b></div><div class="fact"><span>Weight</span><b>${(pokemon.weight/10).toFixed(1)} kg</b></div><div class="fact"><span>Abilities</span><b>${escapeHTML(abilities)}</b></div></div>
+        <div class="detailFacts"><div class="fact"><span>Category</span><b>${escapeHTML(genus.replace(' Pokémon',''))}</b></div><div class="fact"><span>Height</span><b>${(pokemon.height/10).toFixed(1)} m</b></div><div class="fact"><span>Weight</span><b>${(pokemon.weight/10).toFixed(1)} kg</b></div><div class="fact"><span>Card Abilities</span><b>${escapeHTML(cardAbilities)}</b></div></div>
       </div></div>
       <div class="stats"><h3>Base Stats</h3>${pokemon.stats.map(st=>`<div class="statRow"><span>${escapeHTML(displayName(st.stat.name))}</span><b>${st.base_stat}</b><div class="statTrack"><i style="width:${Math.min(100,st.base_stat/2)}%"></i></div></div>`).join('')}</div>`;
   }catch{
