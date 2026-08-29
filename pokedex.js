@@ -21,6 +21,10 @@ const detailCache = new Map();
 const cardDetailCache = new Map();
 const marketCache = new Map();
 let allPokemon=[]; let filtered=[]; let visibleCount=40; let typeIds=null;
+const IS_MOBILE=window.matchMedia('(max-width:800px)').matches;
+const hydrationQueue=[];
+let activeHydrations=0;
+const MAX_HYDRATIONS=IS_MOBILE?3:8;
 
 const grid=document.querySelector('#pokemonGrid');
 const status=document.querySelector('#status');
@@ -103,10 +107,34 @@ function maybeLoadMore(){if(visibleCount>=filtered.length)return;visibleCount=Ma
 const sentinelObserver=new IntersectionObserver(entries=>{if(entries[0].isIntersecting)maybeLoadMore()},{rootMargin:'900px'});
 sentinelObserver.observe(document.querySelector('#loadSentinel'));
 
+function queueHydration(card){
+  if(!card || card.dataset.hydrationQueued==='1') return;
+  card.dataset.hydrationQueued='1';
+  hydrationQueue.push(card);
+  pumpHydrationQueue();
+}
+function pumpHydrationQueue(){
+  while(activeHydrations<MAX_HYDRATIONS && hydrationQueue.length){
+    const card=hydrationQueue.shift();
+    if(!card?.isConnected) continue;
+    activeHydrations++;
+    hydrateCard(card).finally(()=>{
+      activeHydrations--;
+      pumpHydrationQueue();
+    });
+  }
+}
 const cardObserver=new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{if(entry.isIntersecting){cardObserver.unobserve(entry.target); hydrateCard(entry.target)}})
-},{rootMargin:'700px'});
-function observeCards(){document.querySelectorAll('.pokemonCard').forEach(card=>cardObserver.observe(card))}
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      cardObserver.unobserve(entry.target);
+      queueHydration(entry.target);
+    }
+  });
+},{rootMargin:IS_MOBILE?'160px':'700px'});
+function observeCards(){
+  document.querySelectorAll('.pokemonCard').forEach(card=>cardObserver.observe(card));
+}
 
 function setIdFromCardId(id){const ix=id.lastIndexOf('-');return ix>0?id.slice(0,ix):id}
 async function getSet(setId){
@@ -157,12 +185,30 @@ async function resolveDebut(p){
 async function hydrateCard(card){
   const id=Number(card.dataset.id); const p=allPokemon.find(x=>x.id===id)||{id,name:card.dataset.name};
   const skeleton=card.querySelector('.cardSkeleton'); const img=card.querySelector('.debutImage'); const meta=card.querySelector('.debutMeta');
+  if(!skeleton||!img||!meta) return;
   try{
-    const debut=await resolveDebut(p);
-    if(!debut){skeleton.querySelector('span').textContent='Card debut unavailable';meta.textContent=`GENERATION ${generationFor(id)}`;return}
-    img.src=cardImage(debut.image,'low'); img.onload=()=>{img.classList.add('loaded');skeleton.hidden=true};
-    const year=debut.date?debut.date.slice(0,4):'—'; meta.textContent=`TCG DEBUT · ${year} · ${debut.set}`;
-  }catch{ skeleton.querySelector('span').textContent='Tap to retry'; meta.textContent=`GENERATION ${generationFor(id)}`; }
+    const debut=await withTimeout(resolveDebut(p),IS_MOBILE?12000:9000,null);
+    if(!debut){
+      skeleton.querySelector('span').textContent='Tap to load card';
+      meta.textContent=`GENERATION ${generationFor(id)}`;
+      card.dataset.hydrationQueued='0';
+      return;
+    }
+    const reveal=()=>{img.classList.add('loaded');skeleton.hidden=true};
+    const fail=()=>{skeleton.querySelector('span').textContent='Tap to retry';card.dataset.hydrationQueued='0'};
+    img.onload=reveal;
+    img.onerror=fail;
+    img.loading=IS_MOBILE?'eager':'lazy';
+    img.decoding='async';
+    img.src=cardImage(debut.image,'low');
+    if(img.complete && img.naturalWidth>0) reveal();
+    const year=debut.date?debut.date.slice(0,4):'—';
+    meta.textContent=`TCG DEBUT · ${year} · ${debut.set}`;
+  }catch{
+    skeleton.querySelector('span').textContent='Tap to retry';
+    meta.textContent=`GENERATION ${generationFor(id)}`;
+    card.dataset.hydrationQueued='0';
+  }
 }
 
 searchInput.addEventListener('input',applyFilters);
@@ -172,7 +218,14 @@ typeFilter.addEventListener('change',async e=>{await loadTypeIds(e.target.value)
 document.querySelector('#clearFilters').addEventListener('click',()=>{searchInput.value='';generationFilter.value='all';typeFilter.value='all';sortFilter.value='number-asc';typeIds=null;applyFilters()});
 document.querySelector('#randomBtn').addEventListener('click',()=>{const pool=filtered.length?filtered:allPokemon;if(!pool.length)return;const pick=pool[Math.floor(Math.random()*pool.length)];openPokemon(pick.id)});
 document.addEventListener('keydown',e=>{if(e.key==='/'&&document.activeElement.tagName!=='INPUT'){e.preventDefault();searchInput.focus()}if(e.key==='Escape'&&modal.open)modal.close()});
-grid.addEventListener('click',e=>{const card=e.target.closest('.pokemonCard');if(card)openPokemon(Number(card.dataset.id))});
+grid.addEventListener('click',e=>{
+  const card=e.target.closest('.pokemonCard');
+  if(!card) return;
+  if(!card.querySelector('.debutImage')?.classList.contains('loaded') && card.dataset.hydrationQueued!=='1'){
+    queueHydration(card);
+  }
+  openPokemon(Number(card.dataset.id));
+});
 grid.addEventListener('keydown',e=>{const card=e.target.closest('.pokemonCard');if(card&&(e.key==='Enter'||e.key===' ')){e.preventDefault();openPokemon(Number(card.dataset.id))}});
 document.querySelector('#modalClose').addEventListener('click',()=>modal.close());modal.addEventListener('click',e=>{if(e.target===modal)modal.close()});
 
