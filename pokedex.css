@@ -32,3 +32,59 @@
  .cardQuickFacts{grid-template-columns:1fr 1fr 1fr}
  .detailMascot{width:54px;opacity:.95}
 }
+
+/* Compact Pokédex detail refresh */
+.pokemonModal{width:min(860px,calc(100% - 24px));max-height:90vh}
+.detailHero{grid-template-columns:.82fr 1.18fr;min-height:390px}
+.detailVisual.tcg{padding:42px 22px 26px}
+.detailVisual.tcg img{width:78%;height:88%}
+.detailCopy{padding:38px 40px 28px}
+.detailCopy h2{font-size:clamp(44px,5vw,64px);margin:6px 0 10px}
+.types{margin-bottom:10px}
+.debutPanel{margin-top:12px;padding:11px 13px}
+.flavor{margin:14px 0;padding:11px 13px;line-height:1.5}
+.detailFacts{grid-template-columns:repeat(3,1fr);gap:8px}
+.fact{padding:10px}
+.fact b{font-size:14px}
+.cardExtras[hidden]{display:none!important}
+.cardExtras{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:9px}
+.cardExtras>div{padding:10px 11px;border-radius:11px;background:#fff6d0;border:1px solid #e1c857;box-shadow:3px 3px 0 #1111}
+.cardExtras span{display:block;color:#7d7469;font-size:8px;font-weight:950;letter-spacing:.11em;text-transform:uppercase}
+.cardExtras b{display:block;margin-top:4px;font-size:13px;line-height:1.3}
+.stats{padding:18px 40px 24px}
+.stats h3{margin-bottom:10px}
+.statRow{margin:6px 0}
+.detailMascot{right:8px;top:8px;width:112px;max-height:130px;transform:rotate(-3deg);opacity:1}
+.modalClose{right:max(calc((100vw - 860px)/2 + 10px),18px);top:calc(5vh + 8px)}
+@media(max-width:800px){
+ .pokemonModal{width:min(640px,calc(100% - 18px));max-height:92vh}
+ .detailHero{grid-template-columns:1fr;min-height:0}
+ .detailVisual{min-height:220px}
+ .detailVisual.tcg{padding:36px 20px 20px}
+ .detailVisual.tcg img{width:auto;height:205px;max-width:72%}
+ .detailCopy{padding:24px 20px 18px}
+ .detailCopy h2{font-size:48px;padding-right:92px}
+ .detailMascot{width:96px;max-height:108px;right:4px;top:4px}
+ .detailFacts{grid-template-columns:repeat(3,1fr)}
+ .stats{padding:16px 20px 22px}
+ .modalClose{right:14px;top:12px}
+}
+@media(max-width:520px){
+ .pokemonModal{width:calc(100% - 12px);max-height:94vh}
+ .detailVisual{min-height:185px}
+ .detailVisual.tcg img{height:170px;max-width:66%}
+ .detailCopy{padding:18px 14px 14px}
+ .detailCopy .detailNumber{font-size:10px}
+ .detailCopy h2{font-size:42px;line-height:.92;padding-right:78px}
+ .detailMascot{width:82px;max-height:90px;right:0;top:0}
+ .debutPanel{padding:10px 11px}
+ .flavor{font-size:14px;margin:11px 0}
+ .detailFacts{grid-template-columns:repeat(3,1fr);gap:6px}
+ .fact{padding:9px 8px}
+ .fact span{font-size:7px}
+ .fact b{font-size:13px}
+ .cardExtras{grid-template-columns:1fr 1fr;gap:6px}
+ .cardExtras>div{padding:9px}
+ .stats{padding:14px 14px 18px}
+ .statRow{grid-template-columns:70px 28px 1fr;font-size:10px;margin:5px 0}
+}
