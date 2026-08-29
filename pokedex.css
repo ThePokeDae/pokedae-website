@@ -93,3 +93,7 @@
 .marketFact a{text-decoration:none;color:inherit}
 .marketFact b{font-size:17px!important;color:#17783a}
 .marketFact small{display:block;margin-top:3px;color:#6e7d70;font-size:7px;font-weight:800;text-transform:uppercase;letter-spacing:.07em}
+
+.detailMascotShip{width:145px!important;max-height:118px!important;right:-6px!important;top:2px!important;transform:rotate(4deg)!important;filter:drop-shadow(5px 6px 0 #0002)!important}
+@media(max-width:800px){.detailMascotShip{width:118px!important;max-height:98px!important;right:-4px!important;top:0!important}}
+@media(max-width:520px){.detailMascotShip{width:102px!important;max-height:84px!important;right:-8px!important;top:-2px!important}}
