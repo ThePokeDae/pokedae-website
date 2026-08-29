@@ -267,34 +267,26 @@ async function openPokemon(id){
     if(debut){
       if(visual) visual.innerHTML=`<span class="firstCardStamp">FIRST ENGLISH TCG CARD</span><img src="${cardImage(debut.image,'high')}" alt="${escapeHTML(debut.name)} from ${escapeHTML(debut.set)}">`;
       if(panel) panel.innerHTML=`<small>TCG DEBUT</small><strong>${escapeHTML(debut.set)} · ${debut.date?debut.date.slice(0,4):'DATE UNKNOWN'}</strong><span>Card ${escapeHTML(debut.localId)}${debut.illustrator?` · Illustrated by ${escapeHTML(debut.illustrator)}`:''}</span>`;
+
       const [cardInfo,marketInfo]=await Promise.all([
         withTimeout(getDebutCardInfo(debut),4500,null),
         withTimeout(getTCGPlayerMarket(debut),4500,null)
       ]);
+
       if(extrasEl){
         const extras=[];
         if(cardInfo?.moves?.length) extras.push({label:'Card Moves',value:cardInfo.moves.join(' · ')});
         if(cardInfo?.hp) extras.push({label:'Card HP',value:String(cardInfo.hp)});
         if(cardInfo?.weaknesses?.length) extras.push({label:'Weakness',value:cardInfo.weaknesses.map(w=>w.type+(w.value?' '+w.value:'')).join(', ')});
         if(cardInfo?.retreat!=null) extras.push({label:'Retreat',value:String(cardInfo.retreat)});
-        if(marketInfo?.market!=null) extras.push({
-          label:'TCGplayer Market',
-          value:'
-    }else{
-      if(visual) visual.innerHTML='<span class="firstCardStamp">FIRST ENGLISH TCG CARD</span><div class="noCard">TCG debut card unavailable</div>';
-      if(panel) panel.innerHTML='<small>TCG DEBUT</small><strong>Card data unavailable</strong><span>Try this entry again later.</span>';
-
-    }
-  }catch{
-    modalContent.innerHTML=`<div class="detailLoading"><b>${dex(id)} · ${escapeHTML(displayName(p.name))}</b><span>That entry could not be loaded right now. Try again in a moment.</span></div>`;
-  }
-}
-
-init();
-+marketInfo.market.toFixed(2),
-          href:marketInfo.url,
-          meta:marketInfo.updatedAt?'Updated '+marketInfo.updatedAt:''
-        });
+        if(marketInfo?.market!=null){
+          extras.push({
+            label:'TCGplayer Market',
+            value:'$'+marketInfo.market.toFixed(2),
+            href:marketInfo.url,
+            meta:marketInfo.updatedAt?'Updated '+marketInfo.updatedAt:''
+          });
+        }
         if(extras.length){
           extrasEl.hidden=false;
           extrasEl.innerHTML=extras.map(item=>`<div class="${item.label==='TCGplayer Market'?'marketFact':''}"><span>${escapeHTML(item.label)}</span>${item.href?`<a href="${escapeHTML(item.href)}" target="_blank" rel="noreferrer"><b>${escapeHTML(item.value)}</b></a>`:`<b>${escapeHTML(item.value)}</b>`}${item.meta?`<small>${escapeHTML(item.meta)}</small>`:''}</div>`).join('');
@@ -303,7 +295,6 @@ init();
     }else{
       if(visual) visual.innerHTML='<span class="firstCardStamp">FIRST ENGLISH TCG CARD</span><div class="noCard">TCG debut card unavailable</div>';
       if(panel) panel.innerHTML='<small>TCG DEBUT</small><strong>Card data unavailable</strong><span>Try this entry again later.</span>';
-
     }
   }catch{
     modalContent.innerHTML=`<div class="detailLoading"><b>${dex(id)} · ${escapeHTML(displayName(p.name))}</b><span>That entry could not be loaded right now. Try again in a moment.</span></div>`;
