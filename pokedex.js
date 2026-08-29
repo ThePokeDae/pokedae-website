@@ -248,7 +248,7 @@ async function openPokemon(id){
 
     modalContent.innerHTML=`<div class="detailHero">
       <div class="detailVisual tcg" id="modalCardVisual"><span class="firstCardStamp">FIRST ENGLISH TCG CARD</span><div class="noCard">Loading debut card…</div></div>
-      <div class="detailCopy"><img class="detailMascot" src="./pokedae-character-cta.png" alt="" aria-hidden="true"><span class="detailNumber">${dex(id)} · GENERATION ${generationFor(id)}</span><h2>${escapeHTML(displayName(p.name))}</h2>
+      <div class="detailCopy"><img class="detailMascot detailMascotShip" src="./pokedae-spaceship.png" alt="" aria-hidden="true"><span class="detailNumber">${dex(id)} · GENERATION ${generationFor(id)}</span><h2>${escapeHTML(displayName(p.name))}</h2>
         <div class="types">${types.map(t=>`<span class="typeBadge type-${t}">${t}</span>`).join('')}</div>
         <div class="debutPanel" id="modalDebutPanel"><small>TCG DEBUT</small><strong>Loading card data…</strong><span>Pokédex details are ready.</span></div>
         <p class="flavor">${escapeHTML(flavor)}</p>
