@@ -139,6 +139,8 @@ function observeCards(){
     cards.slice(0,12).forEach(queueHydration);
     return;
   }
+  cards.forEach(card=>cardObserver.observe(card));
+}
 
 function hydrateMoreMobileCards(){
   if(!IS_MOBILE) return;
@@ -151,15 +153,17 @@ function hydrateMoreMobileCards(){
     if(top<viewportBottom) queueHydration(card);
   });
 }
+
 if(IS_MOBILE){
   let mobileHydrationTick=false;
   window.addEventListener('scroll',()=>{
     if(mobileHydrationTick) return;
     mobileHydrationTick=true;
-    requestAnimationFrame(()=>{mobileHydrationTick=false;hydrateMoreMobileCards()});
+    requestAnimationFrame(()=>{
+      mobileHydrationTick=false;
+      hydrateMoreMobileCards();
+    });
   },{passive:true});
-}
-  cards.forEach(card=>cardObserver.observe(card));
 }
 
 function setIdFromCardId(id){const ix=id.lastIndexOf('-');return ix>0?id.slice(0,ix):id}
