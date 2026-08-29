@@ -179,17 +179,23 @@ async function getPokemonDetails(id){
   const p=Promise.all([fetch(`${POKEAPI}/pokemon/${id}`).then(r=>r.json()),fetch(`${POKEAPI}/pokemon-species/${id}`).then(r=>r.json())]);
   detailCache.set(id,p);return p;
 }
-async function getDebutCardMoves(debut){
-  if(!debut?.id) return 'None listed';
+async function getDebutCardInfo(debut){
+  if(!debut?.id) return null;
   if(cardDetailCache.has(debut.id)) return cardDetailCache.get(debut.id);
   const promise=fetch(TCGDEX+'/cards/'+encodeURIComponent(debut.id))
     .then(r=>r.ok?r.json():null)
     .then(full=>{
-      const abilityNames=Array.isArray(full?.abilities)?full.abilities.map(x=>x?.name).filter(Boolean):[];
-      const attackNames=Array.isArray(full?.attacks)?full.attacks.map(x=>x?.name).filter(Boolean):[];
-      return [...new Set([...abilityNames,...attackNames])].join(', ')||'None listed';
+      if(!full) return null;
+      const abilityNames=Array.isArray(full.abilities)?full.abilities.map(x=>x?.name).filter(Boolean):[];
+      const attackNames=Array.isArray(full.attacks)?full.attacks.map(x=>x?.name).filter(Boolean):[];
+      return {
+        moves:[...new Set([...abilityNames,...attackNames])],
+        hp:full.hp||null,
+        weaknesses:Array.isArray(full.weaknesses)?full.weaknesses:[],
+        retreat:typeof full.retreat==='number'?full.retreat:null
+      };
     })
-    .catch(()=> 'None listed');
+    .catch(()=>null);
   cardDetailCache.set(debut.id,promise);
   return promise;
 }
@@ -209,11 +215,12 @@ async function openPokemon(id){
 
     modalContent.innerHTML=`<div class="detailHero">
       <div class="detailVisual tcg" id="modalCardVisual"><span class="firstCardStamp">FIRST ENGLISH TCG CARD</span><div class="noCard">Loading debut card…</div></div>
-      <div class="detailCopy"><span class="detailNumber">${dex(id)} · GENERATION ${generationFor(id)}</span><h2>${escapeHTML(displayName(p.name))}</h2>
+      <div class="detailCopy"><img class="detailMascot" src="./pokedae-phone-alert.png" alt="" aria-hidden="true"><span class="detailNumber">${dex(id)} · GENERATION ${generationFor(id)}</span><h2>${escapeHTML(displayName(p.name))}</h2>
         <div class="types">${types.map(t=>`<span class="typeBadge type-${t}">${t}</span>`).join('')}</div>
         <div class="debutPanel" id="modalDebutPanel"><small>TCG DEBUT</small><strong>Loading card data…</strong><span>Pokédex details are ready.</span></div>
         <p class="flavor">${escapeHTML(flavor)}</p>
-        <div class="detailFacts"><div class="fact"><span>Category</span><b>${escapeHTML(genus.replace(' Pokémon',''))}</b></div><div class="fact"><span>Height</span><b>${(pokemon.height/10).toFixed(1)} m</b></div><div class="fact"><span>Weight</span><b>${(pokemon.weight/10).toFixed(1)} kg</b></div><div class="fact"><span>Card Abilities</span><b id="modalCardAbilities">Loading…</b></div></div>
+        <div class="detailFacts"><div class="fact"><span>Category</span><b>${escapeHTML(genus.replace(' Pokémon',''))}</b></div><div class="fact"><span>Height</span><b>${(pokemon.height/10).toFixed(1)} m</b></div><div class="fact"><span>Weight</span><b>${(pokemon.weight/10).toFixed(1)} kg</b></div><div class="fact cardMoveFact"><span>Card Moves</span><b id="modalCardAbilities">Loading…</b></div></div>
+        <div class="cardQuickFacts"><div><span>Card HP</span><b id="modalCardHp">—</b></div><div><span>Weakness</span><b id="modalCardWeakness">—</b></div><div><span>Retreat</span><b id="modalCardRetreat">—</b></div></div>
       </div></div>
       <div class="stats"><h3>Base Stats</h3>${pokemon.stats.map(st=>`<div class="statRow"><span>${escapeHTML(displayName(st.stat.name))}</span><b>${st.base_stat}</b><div class="statTrack"><i style="width:${Math.min(100,st.base_stat/2)}%"></i></div></div>`).join('')}</div>`;
 
@@ -223,16 +230,25 @@ async function openPokemon(id){
     const visual=document.querySelector('#modalCardVisual');
     const panel=document.querySelector('#modalDebutPanel');
     const abilityEl=document.querySelector('#modalCardAbilities');
+    const hpEl=document.querySelector('#modalCardHp');
+    const weaknessEl=document.querySelector('#modalCardWeakness');
+    const retreatEl=document.querySelector('#modalCardRetreat');
 
     if(debut){
       if(visual) visual.innerHTML=`<span class="firstCardStamp">FIRST ENGLISH TCG CARD</span><img src="${cardImage(debut.image,'high')}" alt="${escapeHTML(debut.name)} from ${escapeHTML(debut.set)}">`;
       if(panel) panel.innerHTML=`<small>TCG DEBUT</small><strong>${escapeHTML(debut.set)} · ${debut.date?debut.date.slice(0,4):'DATE UNKNOWN'}</strong><span>Card ${escapeHTML(debut.localId)}${debut.illustrator?` · Illustrated by ${escapeHTML(debut.illustrator)}`:''}</span>`;
-      const cardAbilities=await withTimeout(getDebutCardMoves(debut),4500,'None listed');
-      if(abilityEl) abilityEl.textContent=cardAbilities;
+      const cardInfo=await withTimeout(getDebutCardInfo(debut),4500,null);
+      if(abilityEl) abilityEl.textContent=cardInfo?.moves?.length?cardInfo.moves.join(' · '):'No named move listed';
+      if(hpEl) hpEl.textContent=cardInfo?.hp||'—';
+      if(weaknessEl) weaknessEl.textContent=cardInfo?.weaknesses?.length?cardInfo.weaknesses.map(w=>w.type+(w.value?' '+w.value:'')).join(', '):'None';
+      if(retreatEl) retreatEl.textContent=cardInfo?.retreat!=null?String(cardInfo.retreat):'—';
     }else{
       if(visual) visual.innerHTML='<span class="firstCardStamp">FIRST ENGLISH TCG CARD</span><div class="noCard">TCG debut card unavailable</div>';
       if(panel) panel.innerHTML='<small>TCG DEBUT</small><strong>Card data unavailable</strong><span>Try this entry again later.</span>';
-      if(abilityEl) abilityEl.textContent='None listed';
+      if(abilityEl) abilityEl.textContent='No card data';
+      if(hpEl) hpEl.textContent='—';
+      if(weaknessEl) weaknessEl.textContent='—';
+      if(retreatEl) retreatEl.textContent='—';
     }
   }catch{
     modalContent.innerHTML=`<div class="detailLoading"><b>${dex(id)} · ${escapeHTML(displayName(p.name))}</b><span>That entry could not be loaded right now. Try again in a moment.</span></div>`;
