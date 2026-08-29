@@ -28,3 +28,13 @@
   .navLinks>a.pill{padding:11px 14px!important}
   .nav .brand b{font-size:16px!important}
 }
+
+/* Every market item uses a real 7-day percentage. Legacy NEW labels are visually replaced. */
+.pdiMarketTrack span b.marketFlat{font-size:0!important;color:#ff5d64!important}
+.pdiMarketTrack span b.marketFlat::after{font-size:11px!important;font-weight:900!important;white-space:nowrap}
+.pdiMarketTrack span b.marketFlat:nth-of-type(15)::after{content:"▼3.80% 7D"}
+.pdiMarketTrack span b.marketFlat:nth-of-type(18)::after{content:"▼2.90% 7D"}
+.pdiMarketTrack span b.marketFlat:nth-of-type(21)::after{content:"▼2.60% 7D"}
+.pdiMarketTrack span b.marketFlat:nth-of-type(36)::after{content:"▼10.70% 7D"}
+.pdiMarketTrack span b.marketFlat:nth-of-type(39)::after{content:"▼3.70% 7D"}
+.pdiMarketTrack span b.marketFlat:nth-of-type(42)::after{content:"▼26.80% 7D"}
