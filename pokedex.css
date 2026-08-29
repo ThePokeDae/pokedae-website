@@ -88,3 +88,8 @@
  .stats{padding:14px 14px 18px}
  .statRow{grid-template-columns:70px 28px 1fr;font-size:10px;margin:5px 0}
 }
+
+.marketFact{background:#e9f7ec!important;border-color:#8ecf99!important}
+.marketFact a{text-decoration:none;color:inherit}
+.marketFact b{font-size:17px!important;color:#17783a}
+.marketFact small{display:block;margin-top:3px;color:#6e7d70;font-size:7px;font-weight:800;text-transform:uppercase;letter-spacing:.07em}
