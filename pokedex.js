@@ -151,31 +151,27 @@ function cardNameMatches(cardName, pokemonName){
 
 async function resolveDebut(p){
   if(debutCache.has(p.id)) return debutCache.get(p.id);
-  const stored=localStorage.getItem(`pokedae-debut-v2-${p.id}`);
+  const key='pokedae-debut-v2-'+p.id;
+  const stored=localStorage.getItem(key);
   if(stored){try{const parsed=JSON.parse(stored);debutCache.set(p.id,parsed);return parsed}catch{}}
   const pokemonName=displayName(p.name);
   const promise=(async()=>{
-    const r=await fetch(`${TCGDEX}/cards?name=${encodeURIComponent(pokemonName)}`);
+    const r=await fetch(TCGDEX+'/cards?name='+encodeURIComponent(pokemonName));
     if(!r.ok) throw new Error('TCGdex search failed');
     let cards=await r.json();
-    cards=cards.filter(c=>c.image && cardNameMatches(c.name,pokemonName));
+    cards=cards.filter(c=>c.image&&cardNameMatches(c.name,pokemonName));
     if(!cards.length){
-      cards=(await (await fetch(`${TCGDEX}/cards?name=${encodeURIComponent(pokemonName.split(' ')[0])}`)).json()).filter(c=>c.image && normalizedCardName(c.name).includes(normalizedCardName(pokemonName)));
+      const f=await fetch(TCGDEX+'/cards?name='+encodeURIComponent(pokemonName.split(' ')[0]));
+      if(f.ok){const fc=await f.json();cards=fc.filter(c=>c.image&&normalizedCardName(c.name).includes(normalizedCardName(pokemonName)));}
     }
-    const uniqueSetIds=[...new Set(cards.map(c=>setIdFromCardId(c.id)))];
-    const sets=await Promise.all(uniqueSetIds.map(getSet));
-    const dates=new Map(sets.filter(Boolean).map(s=>[s.id,s.releaseDate||'9999-12-31']));
-    cards.sort((a,b)=>{
-      const da=dates.get(setIdFromCardId(a.id))||'9999-12-31'; const db=dates.get(setIdFromCardId(b.id))||'9999-12-31';
-      if(da!==db) return da.localeCompare(db);
-      return String(a.localId).localeCompare(String(b.localId),undefined,{numeric:true});
-    });
     const first=cards[0];
     if(!first) return null;
-    const set=await getSet(setIdFromCardId(first.id));
-    const full=await fetch(`${TCGDEX}/cards/${encodeURIComponent(first.id)}`).then(x=>x.ok?x.json():null).catch(()=>null);
-    const result={id:first.id,name:first.name,image:first.image,localId:first.localId,set:set?.name||full?.set?.name||'Unknown set',date:set?.releaseDate||null,illustrator:full?.illustrator||null,rarity:full?.rarity||null};
-    try{localStorage.setItem(`pokedae-debut-v2-${p.id}`,JSON.stringify(result))}catch{}
+    const full=await fetch(TCGDEX+'/cards/'+encodeURIComponent(first.id)).then(x=>x.ok?x.json():null).catch(()=>null);
+    let setName=full?.set?.name||'Unknown set';
+    let releaseDate=full?.set?.releaseDate||null;
+    if(!releaseDate){const set=await getSet(setIdFromCardId(first.id));setName=set?.name||setName;releaseDate=set?.releaseDate||null;}
+    const result={id:first.id,name:first.name,image:first.image,localId:first.localId,set:setName,date:releaseDate,illustrator:full?.illustrator||null,rarity:full?.rarity||null};
+    try{localStorage.setItem(key,JSON.stringify(result))}catch{}
     return result;
   })();
   debutCache.set(p.id,promise);
