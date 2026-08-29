@@ -7,7 +7,7 @@
   <meta name="description" content="Explore all 1,025 Pokémon through their first English Pokémon TCG card, with Pokédex details, generations, types, sets, release years, and illustrators.">
   <link rel="icon" type="image/png" href="./pokedae-logo.png">
   <link rel="stylesheet" href="./pokedex.css">
-  <link rel="stylesheet" href="./pokedex-polish.css?v=20260828f">
+  <link rel="stylesheet" href="./pokedex-polish.css?v=20260828g">
 </head>
 <body>
   <div class="pdiMarketBar" aria-label="PokéDaé market watch, updated August 28, 2026">
@@ -19,7 +19,37 @@
   </div>
   <main id="top">
     <nav class="nav shell"><a class="brand" href="./index.html" aria-label="PokéDaé home"><img src="./pokedae-logo.png" alt=""><b>pokedae.com</b></a><div class="navLinks"><a href="./news/">News</a><a href="./calendar.html">Calendar</a><a href="./30th.html">30th HQ</a><a class="active" href="./pokedex.html">Pokédex</a><a href="./index.html#about">About</a><a class="pill giveawayNav" href="./giveaway.html">Giveaway</a><a href="./signup.html">PDI Beta + Newsletter</a><a class="pill dark" href="https://www.facebook.com/pokedae" target="_blank" rel="noreferrer">Follow PokéDaé</a></div></nav>
-    <section class="exactHeroWrap shell"><img class="exactHeroImage" src="./pokedex-hero-reference.webp" alt="PokéDaé Pokédex - every Pokémon, their first card"></section>
+    <section class="dexHeroSharp shell">
+  <div class="dexHeroCopy">
+    <h1>POKÉ<span>DEX</span></h1>
+    <p class="dexHeroTag">EVERY POKÉMON. THEIR FIRST CARD.</p>
+    <p class="dexHeroLead">Explore all 1,025 Pokémon and see the very first TCG card ever printed for each one in English.</p>
+    <div class="dexHeroActions">
+      <a class="dexBrowse" href="#national-dex">▣ BROWSE ALL</a>
+      <a class="dexFilter" href="#dex-controls">▽ FILTERS</a>
+    </div>
+  </div>
+
+  <div class="dexHeroDevice" aria-label="Pokédex scanner displaying Bulbasaur">
+    <div class="dexSpeaker"></div>
+    <div class="dexDeviceScreen">
+      <b>#0001</b>
+      <div class="bulbaSilhouette" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <div class="dexBarcode" aria-hidden="true"></div>
+    </div>
+    <div class="dexLogoButton"><img src="./pokedae-logo.png" alt=""></div>
+  </div>
+
+  <article class="dexHeroCard">
+    <p class="dexHeroNo">#0001</p>
+    <h2>BULBASAUR</h2>
+    <div class="dexHeroTypes"><span>GRASS</span><span>POISON</span></div>
+    <p class="dexFirstLabel">First Card Ever (English)</p>
+    <p class="dexSet">▣ <strong>Base Set</strong> <i>|</i> 1999</p>
+    <p class="dexCardNo">Card <strong>#44</strong>/102</p>
+    <p class="dexIllus">Illus. <em>Mitsuhiro Arita</em></p>
+  </article>
+</section>
     <section class="dexSection shell" id="national-dex"><div class="sectionHead"><div><p class="kicker">DATABASE // NATIONAL № 0001–1025</p><h2>Where every Pokémon started.</h2></div><button id="randomBtn" class="randomBtn" type="button">↻ Random Pokémon</button></div><div class="controlDeck" id="dex-controls"><label class="searchBox"><span>⌕</span><input id="searchInput" type="search" autocomplete="off" placeholder="Search Pikachu, Gengar, #025..." aria-label="Search Pokémon"><kbd>/</kbd></label><div class="filterRow"><label><span>Generation</span><select id="generationFilter"><option value="all">All generations</option></select></label><label><span>Type</span><select id="typeFilter"><option value="all">All types</option></select></label><label><span>Sort</span><select id="sortFilter"><option value="number-asc">Number ↑</option><option value="number-desc">Number ↓</option><option value="name-asc">Name A–Z</option><option value="name-desc">Name Z–A</option></select></label></div></div><div class="resultBar"><p><strong id="resultCount">1,025</strong> Pokémon found</p><button id="clearFilters" type="button">Clear filters</button></div><div id="status" class="status">Connecting to the National Pokédex…</div><div id="pokemonGrid" class="pokemonGrid" aria-live="polite"></div><div id="loadSentinel" class="loadSentinel" aria-hidden="true"></div></section>
     <section class="dexCallout"><div class="shell calloutInner"><div><p class="kicker light">POKÉDAÉ // COLLECT. CONNECT. INVEST. INSPIRE.</p><h2>Gotta know ’em all.</h2><p>Built for Trainers who want the Pokémon world without the clutter.</p></div><img src="./pokedae-spaceship.png" alt="PokéDaé mascot flying in a spaceship"></div></section><footer class="shell"><a class="brand" href="./index.html"><img src="./pokedae-logo.png" alt=""><b>pokedae.com</b></a><p>PokéDaé is an independent Pokémon fan resource and is not affiliated with Nintendo, Creatures Inc., GAME FREAK inc., or The Pokémon Company.</p></footer>
   </main>
