@@ -17,6 +17,7 @@ const NAME_FIXES={
 };
 const setCache = new Map();
 const debutCache = new Map();
+const gridDebutCache = new Map();
 const detailCache = new Map();
 const cardDetailCache = new Map();
 const marketCache = new Map();
@@ -179,31 +180,104 @@ function cardNameMatches(cardName, pokemonName){
   return a===b || a===`dark ${b}` || a===`light ${b}` || a.endsWith(`'s ${b}`) || a.endsWith(`s ${b}`);
 }
 
-async function resolveDebut(p){
-  if(debutCache.has(p.id)) return debutCache.get(p.id);
+async function resolveDebutBrief(p){
+  if(gridDebutCache.has(p.id)) return gridDebutCache.get(p.id);
+
   const key='pokedae-debut-v2-'+p.id;
-  const stored=localStorage.getItem(key);
-  if(stored){try{const parsed=JSON.parse(stored);debutCache.set(p.id,parsed);return parsed}catch{}}
+  try{
+    const stored=localStorage.getItem(key);
+    if(stored){
+      const parsed=JSON.parse(stored);
+      if(parsed?.image){
+        gridDebutCache.set(p.id,parsed);
+        return parsed;
+      }
+    }
+  }catch{}
+
   const pokemonName=displayName(p.name);
   const promise=(async()=>{
-    const r=await fetch(TCGDEX+'/cards?name='+encodeURIComponent(pokemonName));
-    if(!r.ok) throw new Error('TCGdex search failed');
-    let cards=await r.json();
-    cards=cards.filter(c=>c.image&&cardNameMatches(c.name,pokemonName));
+    let cards=[];
+    const exact=await fetch(TCGDEX+'/cards?name='+encodeURIComponent('eq:'+pokemonName));
+    if(exact.ok) cards=await exact.json();
+
     if(!cards.length){
-      const f=await fetch(TCGDEX+'/cards?name='+encodeURIComponent(pokemonName.split(' ')[0]));
-      if(f.ok){const fc=await f.json();cards=fc.filter(c=>c.image&&normalizedCardName(c.name).includes(normalizedCardName(pokemonName)));}
+      const loose=await fetch(TCGDEX+'/cards?name='+encodeURIComponent(pokemonName));
+      if(loose.ok){
+        const all=await loose.json();
+        cards=all.filter(c=>c.image&&cardNameMatches(c.name,pokemonName));
+      }
     }
-    const first=cards[0];
+
+    const first=cards.find(c=>c.image)||null;
     if(!first) return null;
-    const full=await fetch(TCGDEX+'/cards/'+encodeURIComponent(first.id)).then(x=>x.ok?x.json():null).catch(()=>null);
+
+    const brief={
+      id:first.id,
+      name:first.name,
+      image:first.image,
+      localId:first.localId,
+      set:'',
+      date:null,
+      illustrator:null,
+      rarity:null
+    };
+    gridDebutCache.set(p.id,brief);
+    return brief;
+  })();
+
+  gridDebutCache.set(p.id,promise);
+  return promise;
+}
+
+async function resolveDebut(p){
+  if(debutCache.has(p.id)) return debutCache.get(p.id);
+
+  const key='pokedae-debut-v2-'+p.id;
+  try{
+    const stored=localStorage.getItem(key);
+    if(stored){
+      const parsed=JSON.parse(stored);
+      if(parsed?.image && parsed?.set){
+        debutCache.set(p.id,parsed);
+        return parsed;
+      }
+    }
+  }catch{}
+
+  const promise=(async()=>{
+    const first=await resolveDebutBrief(p);
+    if(!first) return null;
+
+    const full=await fetch(TCGDEX+'/cards/'+encodeURIComponent(first.id))
+      .then(x=>x.ok?x.json():null)
+      .catch(()=>null);
+
     let setName=full?.set?.name||'Unknown set';
     let releaseDate=full?.set?.releaseDate||null;
-    if(!releaseDate){const set=await getSet(setIdFromCardId(first.id));setName=set?.name||setName;releaseDate=set?.releaseDate||null;}
-    const result={id:first.id,name:first.name,image:first.image,localId:first.localId,set:setName,date:releaseDate,illustrator:full?.illustrator||null,rarity:full?.rarity||null};
+
+    if(!releaseDate){
+      const set=await getSet(setIdFromCardId(first.id));
+      setName=set?.name||setName;
+      releaseDate=set?.releaseDate||null;
+    }
+
+    const result={
+      id:first.id,
+      name:first.name,
+      image:first.image,
+      localId:first.localId,
+      set:setName,
+      date:releaseDate,
+      illustrator:full?.illustrator||null,
+      rarity:full?.rarity||null
+    };
+
     try{localStorage.setItem(key,JSON.stringify(result))}catch{}
+    gridDebutCache.set(p.id,result);
     return result;
   })();
+
   debutCache.set(p.id,promise);
   return promise;
 }
@@ -213,7 +287,7 @@ async function hydrateCard(card){
   const skeleton=card.querySelector('.cardSkeleton'); const img=card.querySelector('.debutImage'); const meta=card.querySelector('.debutMeta');
   if(!skeleton||!img||!meta) return;
   try{
-    const debut=await withTimeout(resolveDebut(p),IS_MOBILE?12000:9000,null);
+    const debut=await withTimeout(resolveDebutBrief(p),IS_MOBILE?8000:7000,null);
     if(!debut){
       skeleton.querySelector('span').textContent='Tap to load card';
       meta.textContent=`GENERATION ${generationFor(id)}`;
@@ -228,8 +302,7 @@ async function hydrateCard(card){
     img.decoding='async';
     img.src=cardImage(debut.image,'low');
     if(img.complete && img.naturalWidth>0) reveal();
-    const year=debut.date?debut.date.slice(0,4):'—';
-    meta.textContent=`TCG DEBUT · ${year} · ${debut.set}`;
+    meta.textContent=debut.date&&debut.set?`TCG DEBUT · ${debut.date.slice(0,4)} · ${debut.set}`:'TCG DEBUT · FIRST ENGLISH CARD';
   }catch{
     skeleton.querySelector('span').textContent='Tap to retry';
     meta.textContent=`GENERATION ${generationFor(id)}`;
