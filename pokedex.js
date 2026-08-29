@@ -20,7 +20,7 @@ const debutCache = new Map();
 const detailCache = new Map();
 const cardDetailCache = new Map();
 const marketCache = new Map();
-let allPokemon=[]; let filtered=[]; let visibleCount=40; let typeIds=null;
+let allPokemon=[]; let filtered=[]; let visibleCount=window.matchMedia('(max-width:800px)').matches?20:40; let typeIds=null;
 const IS_MOBILE=window.matchMedia('(max-width:800px)').matches;
 const hydrationQueue=[];
 let activeHydrations=0;
@@ -84,7 +84,7 @@ function applyFilters(){
   });
   const sort=sortFilter.value;
   filtered.sort((a,b)=>sort==='number-desc'?b.id-a.id:sort==='name-asc'?displayName(a.name).localeCompare(displayName(b.name)):sort==='name-desc'?displayName(b.name).localeCompare(displayName(a.name)):a.id-b.id);
-  visibleCount=40;
+  visibleCount=IS_MOBILE?20:40;
   resultCount.textContent=filtered.length.toLocaleString();
   render();
 }
@@ -101,9 +101,10 @@ function render(){
     <div class="cardCopy"><h3>${escapeHTML(displayName(p.name))}</h3><p class="debutMeta">TCG DEBUT · LOADING</p></div>
   </article>`).join('');
   observeCards();
+  if(IS_MOBILE) requestAnimationFrame(hydrateMoreMobileCards);
 }
 
-function maybeLoadMore(){if(visibleCount>=filtered.length)return;visibleCount=Math.min(visibleCount+40,filtered.length);render()}
+function maybeLoadMore(){if(visibleCount>=filtered.length)return;visibleCount=Math.min(visibleCount+(IS_MOBILE?20:40),filtered.length);render();if(IS_MOBILE)setTimeout(hydrateMoreMobileCards,0)}
 const sentinelObserver=new IntersectionObserver(entries=>{if(entries[0].isIntersecting)maybeLoadMore()},{rootMargin:'900px'});
 sentinelObserver.observe(document.querySelector('#loadSentinel'));
 
@@ -133,7 +134,32 @@ const cardObserver=new IntersectionObserver(entries=>{
   });
 },{rootMargin:IS_MOBILE?'160px':'700px'});
 function observeCards(){
-  document.querySelectorAll('.pokemonCard').forEach(card=>cardObserver.observe(card));
+  const cards=[...document.querySelectorAll('.pokemonCard')];
+  if(IS_MOBILE){
+    cards.slice(0,12).forEach(queueHydration);
+    return;
+  }
+
+function hydrateMoreMobileCards(){
+  if(!IS_MOBILE) return;
+  const cards=[...document.querySelectorAll('.pokemonCard')];
+  const viewportBottom=window.scrollY+window.innerHeight+500;
+  cards.forEach(card=>{
+    if(card.dataset.hydrationQueued==='1') return;
+    if(card.querySelector('.debutImage')?.classList.contains('loaded')) return;
+    const top=card.getBoundingClientRect().top+window.scrollY;
+    if(top<viewportBottom) queueHydration(card);
+  });
+}
+if(IS_MOBILE){
+  let mobileHydrationTick=false;
+  window.addEventListener('scroll',()=>{
+    if(mobileHydrationTick) return;
+    mobileHydrationTick=true;
+    requestAnimationFrame(()=>{mobileHydrationTick=false;hydrateMoreMobileCards()});
+  },{passive:true});
+}
+  cards.forEach(card=>cardObserver.observe(card));
 }
 
 function setIdFromCardId(id){const ix=id.lastIndexOf('-');return ix>0?id.slice(0,ix):id}
