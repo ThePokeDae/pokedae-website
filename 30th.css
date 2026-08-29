@@ -122,3 +122,59 @@ main{overflow:hidden}.commandHero{position:relative;display:grid;grid-template-c
 
 /* Standardized ticker speed: match News */
 @media(max-width:700px){.anniversaryTicker .tickerTrack{animation-duration:80s}}
+
+/* 30th events refresh - welcoming, tighter, family-first */
+.eventRadar{padding:72px 0 82px!important}
+.eventHeader{display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:34px;margin-bottom:26px;padding:30px 34px;overflow:hidden;background:linear-gradient(125deg,#fff 0 64%,#ef2b2d 64% 100%);border:4px solid var(--ink);box-shadow:9px 9px 0 var(--gold);position:relative}
+.eventHeader:before{content:"30";position:absolute;right:26%;bottom:-74px;color:#111;font-size:210px;font-weight:950;line-height:1;opacity:.035;pointer-events:none}
+.eventHeaderCopy{position:relative;z-index:2}
+.eventHeaderCopy>span{display:block;margin-bottom:10px;color:var(--red);font-size:9px;font-weight:950;letter-spacing:.16em}
+.eventHeaderCopy h2{margin:0;font-size:clamp(50px,5vw,74px);line-height:.88;letter-spacing:-.06em}
+.eventHeaderCopy h2 em{color:var(--red);font-style:normal}
+.eventHeaderCopy p{max-width:650px;margin:18px 0 0;color:#625d56;font-size:14px;line-height:1.6}
+.eventMiniStats{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.eventMiniStats b,.eventMiniStats span{padding:7px 10px;border:2px solid var(--ink);font-size:8px;font-weight:950;letter-spacing:.08em}
+.eventMiniStats b{color:#fff;background:var(--ink)}
+.eventMiniStats span{background:#fff}
+.eventHeaderArt{position:relative;display:grid;place-items:center;min-height:185px}
+.eventHeaderArt img{position:relative;z-index:2;width:185px;filter:drop-shadow(7px 8px 0 rgba(0,0,0,.23));transform:rotate(5deg)}
+.eventBurst{position:absolute;right:2px;top:2px;z-index:3;display:grid;place-items:center;width:82px;height:82px;color:#111;background:var(--gold);border:4px solid var(--ink);border-radius:50%;box-shadow:4px 4px 0 #fff;transform:rotate(7deg)}
+.eventBurst strong{font-size:30px;line-height:.8}
+.eventBurst small{font-size:7px;font-weight:950;letter-spacing:.12em}
+
+.eventGridTwo{grid-template-columns:1fr 1fr!important;gap:20px!important;margin-top:0!important}
+.eventGridTwo article{min-height:250px!important;padding:24px 26px 22px!important;display:flex;flex-direction:column;overflow:hidden}
+.eventGridTwo article:before{content:"";position:absolute;right:-35px;bottom:-45px;width:130px;height:130px;border:24px solid rgba(255,255,255,.07);border-radius:50%}
+.eventGridTwo .launch:before{border-color:rgba(239,43,45,.07)}
+.eventTopline{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:24px}
+.eventTopline time{font-size:27px!important}
+.eventTopline span{margin:0!important;white-space:nowrap}
+.eventGridTwo h3{max-width:490px;font-size:27px!important;line-height:1.02!important}
+.eventGridTwo p{max-width:620px;margin:12px 0 22px!important;font-size:13px!important}
+.eventFooter{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:auto;padding-top:16px;border-top:1px solid rgba(255,255,255,.16)}
+.eventGridTwo .launch .eventFooter{border-top-color:#d8c36f}
+.eventFooter b{font-size:8px;letter-spacing:.12em}
+.eventFooter a{position:static!important;font-size:9px!important}
+.eventGridTwo .launch a{color:var(--red)}
+.eventGridTwo .launch{background:linear-gradient(135deg,#fff6ca,#ffe98a)!important}
+.eventGridTwo .now{background:linear-gradient(135deg,#15161a,#24262c)!important}
+
+@media(max-width:850px){
+  .eventHeader{grid-template-columns:1fr 230px;padding:28px}
+  .eventHeaderArt img{width:165px}
+  .eventGridTwo{grid-template-columns:1fr!important}
+}
+@media(max-width:560px){
+  .eventRadar{padding:58px 0 68px!important}
+  .eventHeader{grid-template-columns:1fr;padding:24px 20px 18px;background:linear-gradient(160deg,#fff 0 73%,#ef2b2d 73% 100%)}
+  .eventHeaderCopy h2{font-size:48px}
+  .eventHeaderArt{min-height:135px}
+  .eventHeaderArt img{width:125px}
+  .eventBurst{right:6px;width:68px;height:68px}
+  .eventBurst strong{font-size:24px}
+  .eventMiniStats{gap:6px}
+  .eventGridTwo article{min-height:0!important;padding:21px!important}
+  .eventTopline{align-items:flex-start;flex-direction:column;margin-bottom:17px}
+  .eventGridTwo h3{font-size:23px!important}
+  .eventFooter{align-items:flex-start;flex-direction:column}
+}
