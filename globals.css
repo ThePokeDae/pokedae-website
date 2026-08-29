@@ -119,3 +119,103 @@
     color:#fff!important;
   }
 }
+
+/* PokéDaé navigation vibe refresh */
+.nav{position:relative;z-index:20}
+.navLinks{gap:7px!important}
+.navLinks>a{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  min-height:35px;
+  padding:8px 11px!important;
+  border:1px solid #d4ccc1!important;
+  border-radius:999px!important;
+  background:#fbf8f2!important;
+  color:var(--ink)!important;
+  box-shadow:0 2px 0 #e0d7cc;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,color .18s ease;
+}
+.navLinks>a:before{
+  content:"";
+  position:absolute;
+  inset:auto 10px 5px;
+  height:2px;
+  border-radius:999px;
+  background:var(--red);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform .18s ease;
+  z-index:-1;
+}
+.navLinks>a:hover{
+  transform:translateY(-2px);
+  border-color:var(--ink)!important;
+  box-shadow:0 4px 0 #d9d0c5;
+}
+.navLinks>a:hover:before{transform:scaleX(1)}
+.navLinks>a[href="/restock.html"],
+.navLinks>a[href="/market.html"],
+.navLinks>a[href="/30th.html"]{
+  font-weight:950;
+  background:#fff!important;
+}
+.navLinks>a[href="/restock.html"]{
+  border-color:#bfc7c1!important;
+  box-shadow:0 2px 0 #32c97655;
+}
+.navLinks>a[href="/market.html"]{
+  border-color:var(--red)!important;
+  box-shadow:0 2px 0 #ef2b2d44;
+}
+.navLinks>a[href="/30th.html"]{
+  border-color:#d8b84a!important;
+  box-shadow:0 2px 0 #ffd16688;
+}
+.navLinks>a[href="/signup.html"]{
+  background:var(--ink)!important;
+  color:#fff!important;
+  border-color:var(--ink)!important;
+  box-shadow:4px 4px 0 var(--red)!important;
+  padding-inline:13px!important;
+}
+.navLinks>a[href="/signup.html"]:before{background:var(--yellow)}
+.navLinks>a.activeNav{
+  background:var(--red)!important;
+  color:#fff!important;
+  border-color:var(--ink)!important;
+  box-shadow:4px 4px 0 var(--ink)!important;
+}
+.navLinks>a.activeNav:before{
+  background:var(--yellow);
+  transform:scaleX(1);
+}
+.siteAddress{
+  position:relative;
+  padding:5px 10px 5px 5px;
+  border-radius:999px;
+  transition:background .18s ease,transform .18s ease;
+}
+.siteAddress:hover{background:#fff;transform:translateY(-1px)}
+.siteAddress img{filter:drop-shadow(0 2px 0 #0002)}
+@media(max-width:1180px) and (min-width:801px){
+  .navLinks{gap:5px!important;font-size:7.6px!important}
+  .navLinks>a{padding:7px 8px!important}
+  .navLinks>a[href="/signup.html"]{padding-inline:9px!important}
+}
+@media(max-width:800px){
+  .navLinks>a{
+    min-height:42px!important;
+    background:#fff!important;
+    box-shadow:0 2px 0 #ded5ca!important;
+  }
+  .navLinks>a[href="/signup.html"]{
+    background:var(--ink)!important;
+    color:#fff!important;
+    box-shadow:3px 3px 0 var(--red)!important;
+  }
+  .navLinks>a.activeNav{
+    background:var(--red)!important;
+    color:#fff!important;
+  }
+}
