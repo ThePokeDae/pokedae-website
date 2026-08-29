@@ -24,3 +24,52 @@
  .rhHeroVisual>img{width:56%}
  .p1{left:4%;top:17%}.p2{right:3%;top:26%}.p3{right:6%;bottom:17%}.p4{left:7%;bottom:22%}.p5{left:2%;top:46%}.p6{right:2%;top:51%}.p7{left:24%;top:5%}.p8{left:25%;bottom:5%}
 }
+
+/* Restock HQ hero command-center upgrade */
+.rhCommandCenter{min-height:510px;isolation:isolate}
+.rhCommandCenter .rhRadarGrid{opacity:.8}
+.rhCommandCenter .rhSweep{width:78%;animation-duration:4.6s}
+.rhScanRing.r3{width:96%;border-color:#ffffff12;animation:radarPulse 5.6s ease-in-out infinite .7s}
+.rhHeroGlow{position:absolute;z-index:1;width:72%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#ef2b2d22 0 20%,#ef2b2d0e 35%,transparent 68%);filter:blur(6px)}
+.rhHeroAgent{position:absolute!important;z-index:4!important;left:50%!important;bottom:-4px!important;transform:translateX(-50%)!important;width:auto!important;max-width:none!important;height:86%!important;filter:drop-shadow(0 18px 14px #0009)!important}
+.rhHeroShip{position:absolute!important;z-index:5!important;left:7%!important;top:14%!important;width:31%!important;max-width:190px!important;filter:drop-shadow(0 10px 8px #0008)!important;animation:rhHeroShipFloat 5.4s ease-in-out infinite}
+@keyframes rhHeroShipFloat{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-10px) rotate(3deg)}}
+.rhCommandBadge{position:absolute;right:12px;top:12px;z-index:7;display:grid;padding:10px 12px;background:#f5f0e7;color:#101113;border:3px solid #101113;box-shadow:5px 5px 0 #ef2b2d;transform:rotate(2deg)}
+.rhCommandBadge span{color:#ef2b2d;font-size:7px;font-weight:950;letter-spacing:.13em}
+.rhCommandBadge b{margin-top:2px;font-size:12px;line-height:1}
+.rhCommandBadge small{display:flex;align-items:center;gap:5px;margin-top:5px;font-size:6px;font-weight:950;letter-spacing:.08em;color:#64605b}
+.rhCommandBadge small i{width:6px;height:6px;border-radius:50%;background:#32c976;box-shadow:0 0 7px #32c976}
+.rhHeroConsole{position:absolute;left:14px;right:14px;bottom:14px;z-index:8;display:grid;grid-template-columns:auto 1fr;gap:2px 10px;padding:10px 12px;background:#0b1016e8;color:#fff;border-left:5px solid #32c976;border-right:5px solid #ef2b2d;box-shadow:0 8px 18px #0006}
+.rhHeroConsole>span{grid-row:1/3;display:flex;align-items:center;gap:6px;color:#32c976;font-size:7px;font-weight:950;letter-spacing:.1em}
+.rhHeroConsole>span i{width:7px;height:7px;border-radius:50%;background:#32c976;box-shadow:0 0 8px #32c976}
+.rhHeroConsole>b{font-size:9px;letter-spacing:.07em}
+.rhHeroConsole>small{font-size:6px;color:#98a4b3;letter-spacing:.06em}
+.rhCommandCenter .rhSignal{left:14px;top:14px;bottom:auto;background:#0b1016d9;border-left-color:#ef2b2d}
+.rhCommandCenter .rhPing{z-index:6}
+.rhCommandCenter .p1{left:5%;top:32%}
+.rhCommandCenter .p2{right:5%;top:29%}
+.rhCommandCenter .p3{right:8%;bottom:32%}
+.rhCommandCenter .p4{left:7%;bottom:33%}
+.rhCommandCenter .p5{left:2%;top:52%}
+.rhCommandCenter .p6{right:2%;top:50%}
+.rhCommandCenter .p7{left:32%;top:7%}
+.rhCommandCenter .p8{left:36%;bottom:19%}
+.rhCommandCenter .rhRadarStatus{display:none}
+@media(max-width:800px){
+  .rhCommandCenter{min-height:430px}
+  .rhHeroAgent{height:78%!important}
+  .rhHeroShip{width:27%!important;left:5%!important;top:18%!important}
+  .rhCommandBadge{right:8px;top:8px}
+  .rhHeroConsole{left:8px;right:8px;bottom:8px}
+}
+@media(max-width:520px){
+  .rhCommandCenter{min-height:390px}
+  .rhHeroAgent{height:72%!important;bottom:8px!important}
+  .rhHeroShip{width:25%!important;top:20%!important}
+  .rhCommandBadge{transform:none}
+  .rhCommandCenter .rhPing{font-size:5.5px;padding:5px 6px}
+  .rhHeroConsole>small{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .rhHeroShip{animation:none}
+}
