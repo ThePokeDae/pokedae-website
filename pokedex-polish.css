@@ -18,8 +18,8 @@
 .dexSpeaker{position:absolute;top:14px;left:27%;right:27%;height:15px;border-radius:10px;background:#17191d;box-shadow:0 0 0 3px #ff5d58}
 .dexDeviceScreen{position:absolute;top:18%;left:15%;right:15%;height:43%;border:6px solid #15171b;border-radius:11px;background:#f7f2e7;box-shadow:inset 0 0 0 3px #ef2b2d,0 8px 12px #0004;overflow:hidden}
 .dexDeviceScreen>b{position:absolute;left:14px;top:11px;font-size:19px;font-style:italic}
-.bulbaSilhouette{position:absolute;left:50%;top:53%;width:118px;height:92px;transform:translate(-50%,-50%);display:grid;place-items:center}
-.bulbaSilhouette img{width:116px;height:98px;object-fit:contain;image-rendering:auto;filter:none}
+.bulbaSilhouette{position:absolute;left:50%;top:53%;width:118px;height:92px;transform:translate(-50%,-50%);display:grid;place-items:center;overflow:hidden}
+.bulbaSilhouette img{width:116px;height:98px;object-fit:cover;image-rendering:auto;filter:none}.bulbaCardArt img{width:124px;height:92px;object-fit:cover;object-position:50% 31%;border-radius:3px}
 .dexBarcode{position:absolute;left:18%;right:18%;bottom:11px;height:15px;background:repeating-linear-gradient(90deg,#ef2b2d 0 2px,transparent 2px 4px,#ef2b2d 4px 5px,transparent 5px 8px)}
 .dexLogoButton{position:absolute;left:50%;bottom:6%;width:64px;height:64px;transform:translateX(-50%);border:6px solid #151515;border-radius:50%;background:#f6f0e7;display:grid;place-items:center;box-shadow:0 3px 0 #8f8c87}
 .dexLogoButton img{width:47px;height:47px;object-fit:contain;border-radius:50%}
