@@ -215,12 +215,12 @@ async function openPokemon(id){
 
     modalContent.innerHTML=`<div class="detailHero">
       <div class="detailVisual tcg" id="modalCardVisual"><span class="firstCardStamp">FIRST ENGLISH TCG CARD</span><div class="noCard">Loading debut card…</div></div>
-      <div class="detailCopy"><img class="detailMascot" src="./pokedae-phone-alert.png" alt="" aria-hidden="true"><span class="detailNumber">${dex(id)} · GENERATION ${generationFor(id)}</span><h2>${escapeHTML(displayName(p.name))}</h2>
+      <div class="detailCopy"><img class="detailMascot" src="./pokedae-character-cta.png" alt="" aria-hidden="true"><span class="detailNumber">${dex(id)} · GENERATION ${generationFor(id)}</span><h2>${escapeHTML(displayName(p.name))}</h2>
         <div class="types">${types.map(t=>`<span class="typeBadge type-${t}">${t}</span>`).join('')}</div>
         <div class="debutPanel" id="modalDebutPanel"><small>TCG DEBUT</small><strong>Loading card data…</strong><span>Pokédex details are ready.</span></div>
         <p class="flavor">${escapeHTML(flavor)}</p>
-        <div class="detailFacts"><div class="fact"><span>Category</span><b>${escapeHTML(genus.replace(' Pokémon',''))}</b></div><div class="fact"><span>Height</span><b>${(pokemon.height/10).toFixed(1)} m</b></div><div class="fact"><span>Weight</span><b>${(pokemon.weight/10).toFixed(1)} kg</b></div><div class="fact cardMoveFact"><span>Card Moves</span><b id="modalCardAbilities">Loading…</b></div></div>
-        <div class="cardQuickFacts"><div><span>Card HP</span><b id="modalCardHp">—</b></div><div><span>Weakness</span><b id="modalCardWeakness">—</b></div><div><span>Retreat</span><b id="modalCardRetreat">—</b></div></div>
+        <div class="detailFacts"><div class="fact"><span>Category</span><b>${escapeHTML(genus.replace(' Pokémon',''))}</b></div><div class="fact"><span>Height</span><b>${(pokemon.height/10).toFixed(1)} m</b></div><div class="fact"><span>Weight</span><b>${(pokemon.weight/10).toFixed(1)} kg</b></div></div>
+        <div class="cardExtras" id="modalCardExtras" hidden></div>
       </div></div>
       <div class="stats"><h3>Base Stats</h3>${pokemon.stats.map(st=>`<div class="statRow"><span>${escapeHTML(displayName(st.stat.name))}</span><b>${st.base_stat}</b><div class="statTrack"><i style="width:${Math.min(100,st.base_stat/2)}%"></i></div></div>`).join('')}</div>`;
 
@@ -229,26 +229,28 @@ async function openPokemon(id){
 
     const visual=document.querySelector('#modalCardVisual');
     const panel=document.querySelector('#modalDebutPanel');
-    const abilityEl=document.querySelector('#modalCardAbilities');
-    const hpEl=document.querySelector('#modalCardHp');
-    const weaknessEl=document.querySelector('#modalCardWeakness');
-    const retreatEl=document.querySelector('#modalCardRetreat');
+    const extrasEl=document.querySelector('#modalCardExtras');
 
     if(debut){
       if(visual) visual.innerHTML=`<span class="firstCardStamp">FIRST ENGLISH TCG CARD</span><img src="${cardImage(debut.image,'high')}" alt="${escapeHTML(debut.name)} from ${escapeHTML(debut.set)}">`;
       if(panel) panel.innerHTML=`<small>TCG DEBUT</small><strong>${escapeHTML(debut.set)} · ${debut.date?debut.date.slice(0,4):'DATE UNKNOWN'}</strong><span>Card ${escapeHTML(debut.localId)}${debut.illustrator?` · Illustrated by ${escapeHTML(debut.illustrator)}`:''}</span>`;
       const cardInfo=await withTimeout(getDebutCardInfo(debut),4500,null);
-      if(abilityEl) abilityEl.textContent=cardInfo?.moves?.length?cardInfo.moves.join(' · '):'No named move listed';
-      if(hpEl) hpEl.textContent=cardInfo?.hp||'—';
-      if(weaknessEl) weaknessEl.textContent=cardInfo?.weaknesses?.length?cardInfo.weaknesses.map(w=>w.type+(w.value?' '+w.value:'')).join(', '):'None';
-      if(retreatEl) retreatEl.textContent=cardInfo?.retreat!=null?String(cardInfo.retreat):'—';
+      if(extrasEl){
+        const extras=[];
+        if(cardInfo?.moves?.length) extras.push(['Card Moves',cardInfo.moves.join(' · ')]);
+        if(cardInfo?.hp) extras.push(['Card HP',String(cardInfo.hp)]);
+        if(cardInfo?.weaknesses?.length) extras.push(['Weakness',cardInfo.weaknesses.map(w=>w.type+(w.value?' '+w.value:'')).join(', ')]);
+        if(cardInfo?.retreat!=null) extras.push(['Retreat',String(cardInfo.retreat)]);
+        if(debut?.rarity) extras.push(['Rarity',debut.rarity]);
+        if(extras.length){
+          extrasEl.hidden=false;
+          extrasEl.innerHTML=extras.map(([label,value])=>`<div><span>${escapeHTML(label)}</span><b>${escapeHTML(value)}</b></div>`).join('');
+        }
+      }
     }else{
       if(visual) visual.innerHTML='<span class="firstCardStamp">FIRST ENGLISH TCG CARD</span><div class="noCard">TCG debut card unavailable</div>';
       if(panel) panel.innerHTML='<small>TCG DEBUT</small><strong>Card data unavailable</strong><span>Try this entry again later.</span>';
-      if(abilityEl) abilityEl.textContent='No card data';
-      if(hpEl) hpEl.textContent='—';
-      if(weaknessEl) weaknessEl.textContent='—';
-      if(retreatEl) retreatEl.textContent='—';
+
     }
   }catch{
     modalContent.innerHTML=`<div class="detailLoading"><b>${dex(id)} · ${escapeHTML(displayName(p.name))}</b><span>That entry could not be loaded right now. Try again in a moment.</span></div>`;
