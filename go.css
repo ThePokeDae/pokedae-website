@@ -93,3 +93,17 @@
  .goNextHead h2{font-size:52px}
  .goRadarLine{max-width:100%}
 }
+
+/* Final family portrait visibility fix */
+.goFamily{grid-template-columns:minmax(380px,46%) 1fr!important;align-items:center!important}
+.goFamilyPortraitOnly{display:flex!important;align-items:flex-end;justify-content:center;min-height:360px;overflow:visible}
+.goFamilyPortraitOnly img{display:block!important;width:100%!important;max-width:520px!important;height:auto!important;max-height:none!important;object-fit:contain!important;margin:0 auto!important;opacity:1!important;visibility:visible!important}
+@media(max-width:1000px){
+  .goFamily{grid-template-columns:minmax(320px,42%) 1fr!important}
+  .goFamilyPortraitOnly img{max-width:430px!important}
+}
+@media(max-width:800px){
+  .goFamily{grid-template-columns:1fr!important}
+  .goFamilyPortraitOnly{display:flex!important;min-height:0;margin-bottom:18px}
+  .goFamilyPortraitOnly img{width:min(100%,560px)!important;max-width:560px!important}
+}
