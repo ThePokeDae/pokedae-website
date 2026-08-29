@@ -49,3 +49,11 @@
  .goWildTag.one{left:8px;bottom:88px}
  .goWildTag.three{right:10px;bottom:76px}
 }
+
+/* Clean Wild Area location markers */
+.goWildTag{display:inline-flex;align-items:center;gap:6px;padding:8px 10px;border-radius:999px;background:#fff;color:var(--ink);border:2px solid #fff;font-size:8px;font-weight:950;letter-spacing:.09em;box-shadow:0 0 0 2px #101113,4px 4px 0 var(--red);transform:none!important}
+.goWildTag i{width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 0 3px #ef2b2d1d}
+.goWildTag.one{left:16px;bottom:104px}
+.goWildTag.two{right:18px;top:72px}
+.goWildTag.three{right:24px;bottom:92px;background:var(--red);color:#fff;border-color:var(--red);box-shadow:0 0 0 2px #fff,4px 4px 0 var(--yellow)}
+.goWildTag.three i{background:var(--yellow);box-shadow:0 0 0 3px #ffd16626}
