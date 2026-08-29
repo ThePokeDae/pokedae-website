@@ -44,3 +44,18 @@
     display:inline-flex!important;
   }
 }
+
+/* Homepage nav final spacing — Market HQ is the final added link */
+.homeNav{width:min(1240px,calc(100% - 32px))}
+.homeNav .navLinks{gap:7px;font-size:8.2px}
+.homeNav .navLinks>a{letter-spacing:.025em}
+.homeNav .navLinks>a[href="/restock.html"],
+.homeNav .navLinks>a[href="/market.html"]{padding:8px 9px}
+.homeNav .navLinks>a[href="/signup.html"]{padding-inline:6px}
+.homeNav .navLinks>a.dark{padding:10px 12px}
+@media(max-width:1180px) and (min-width:801px){
+  .homeNav{width:min(100% - 24px,1240px)}
+  .homeNav .navLinks{gap:5px;font-size:7.6px}
+  .homeNav .navLinks>a[href="/restock.html"],
+  .homeNav .navLinks>a[href="/market.html"]{padding:7px 8px}
+}
