@@ -32,3 +32,6 @@
 .jasonFeatureCard .wagonBadge{background:#fff7fa;color:var(--riley-red);border-color:#222}
 .jasonTag,.jasonMini{background:#fff0f4!important;color:var(--riley-red)!important}
 @media(max-width:700px){.jasonDonationPhoto{width:100%}.jasonFeatureCard{padding:22px 16px 24px}}
+
+.officialRileyImage{width:min(420px,90%);height:auto;display:block;border-radius:20px;border:3px solid #222;background:#fff;padding:14px;box-shadow:7px 7px 0 var(--riley-red);object-fit:contain}
+@media(max-width:700px){.officialRileyImage{width:100%;padding:10px}}
