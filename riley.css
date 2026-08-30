@@ -415,3 +415,139 @@
     justify-content:center!important;
   }
 }
+
+/* Riley impact mission */
+.rileyImpact{
+  padding:88px 0;
+  background:
+    radial-gradient(circle at 12% 22%, rgba(255,255,255,.42) 0 20px, transparent 21px),
+    radial-gradient(circle at 90% 20%, rgba(255,255,255,.3) 0 16px, transparent 17px),
+    linear-gradient(135deg,#fff2a8 0%,#ffd56a 48%,#ffc0cf 100%);
+  border-top:3px solid #222;
+  border-bottom:3px solid #222;
+}
+.rileyImpactGrid{
+  display:grid;
+  grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+  gap:44px;
+  align-items:center;
+}
+.impactCopy>span{
+  display:inline-block;
+  color:var(--riley-red);
+  font-weight:900;
+  letter-spacing:.14em;
+  font-size:13px;
+  margin-bottom:16px;
+}
+.impactCopy h2{
+  margin:0 0 18px;
+  font-size:clamp(46px,5.5vw,78px);
+  line-height:.94;
+  letter-spacing:-.045em;
+}
+.impactCopy h2 em{
+  color:var(--riley-red);
+  font-style:normal;
+}
+.impactCopy p{
+  max-width:650px;
+  font-size:18px;
+  line-height:1.65;
+  margin:0 0 18px;
+}
+.impactCopy strong{
+  display:block;
+  font-size:21px;
+  line-height:1.35;
+  max-width:620px;
+  margin-bottom:24px;
+}
+.impactButton{
+  display:inline-flex!important;
+  width:auto!important;
+}
+.impactMission{
+  position:relative;
+  background:#fff8dc;
+  border:3px solid #222;
+  border-radius:34px;
+  padding:26px 26px 26px 190px;
+  box-shadow:12px 12px 0 var(--riley-red);
+  min-height:470px;
+  overflow:hidden;
+}
+.missionLabel{
+  display:inline-block;
+  background:#fff;
+  border:2px solid #222;
+  border-radius:999px;
+  padding:8px 14px;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.08em;
+  color:var(--riley-red);
+  margin-bottom:18px;
+}
+.impactMascot{
+  position:absolute;
+  left:-8px;
+  bottom:-10px;
+  width:205px;
+  z-index:2;
+  filter:drop-shadow(8px 10px 0 rgba(0,0,0,.11));
+}
+.impactCards{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  position:relative;
+  z-index:3;
+}
+.impactCards article{
+  background:#fff;
+  border:3px solid #222;
+  border-radius:22px;
+  padding:18px;
+  min-height:145px;
+  box-shadow:6px 6px 0 #222;
+  transform:rotate(-1deg);
+}
+.impactCards article:nth-child(2),
+.impactCards article:nth-child(4){transform:rotate(1deg);}
+.impactCards article:nth-child(1){background:#fff0a8;}
+.impactCards article:nth-child(2){background:#e9dcff;}
+.impactCards article:nth-child(3){background:#ffdce6;}
+.impactCards article:nth-child(4){background:#dff4ff;}
+.impactEmoji{
+  font-size:30px;
+  margin-bottom:10px;
+}
+.impactCards b{
+  display:block;
+  font-size:18px;
+  line-height:1.1;
+  margin-bottom:8px;
+}
+.impactCards p{
+  margin:0;
+  font-size:14px;
+  line-height:1.45;
+}
+@media(max-width:980px){
+  .rileyImpactGrid{grid-template-columns:1fr;}
+  .impactMission{padding-left:170px;}
+}
+@media(max-width:680px){
+  .rileyImpact{padding:62px 0;}
+  .impactMission{
+    padding:22px;
+    padding-bottom:150px;
+  }
+  .impactCards{grid-template-columns:1fr;}
+  .impactMascot{
+    width:150px;
+    left:50%;
+    transform:translateX(-50%);
+  }
+}
