@@ -35,3 +35,255 @@
 
 .officialRileyImage{width:min(420px,90%);height:auto;display:block;border-radius:20px;border:3px solid #222;background:#fff;padding:14px;box-shadow:7px 7px 0 var(--riley-red);object-fit:contain}
 @media(max-width:700px){.officialRileyImage{width:100%;padding:10px}}
+
+/* 2026-08-30 kid-friendly Riley refresh */
+.rileyPage{
+  background:
+    radial-gradient(circle at 12% 10%, rgba(255,209,64,.22) 0 70px, transparent 72px),
+    radial-gradient(circle at 88% 18%, rgba(255,111,145,.16) 0 85px, transparent 87px),
+    radial-gradient(circle at 20% 82%, rgba(128,208,255,.14) 0 90px, transparent 92px),
+    #fffaf0;
+}
+
+.rileyHero{
+  background:
+    radial-gradient(circle at 14% 20%, rgba(255,255,255,.35) 0 13px, transparent 14px),
+    radial-gradient(circle at 74% 30%, rgba(255,255,255,.25) 0 9px, transparent 10px),
+    linear-gradient(135deg,#ffd84d 0%,#ffb347 42%,#ff7b94 100%);
+}
+
+.rileyHeroCopy h1,
+.sectionIntro h2,
+.rollCopy h2,
+.kidWinCopy h2,
+.rileyFinal h2{
+  letter-spacing:-.045em;
+}
+
+.rileyHeroCopy h1 em,
+.sectionIntro h2 em,
+.rollCopy h2 em,
+.kidWinCopy h2 em,
+.rileyFinal h2 em{
+  text-decoration: underline wavy rgba(255,255,255,.65) 4px;
+  text-underline-offset:8px;
+}
+
+.rileyDonate,
+.rileySecondary,
+.moneyCard a{
+  transform:rotate(-1deg);
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.rileyDonate:hover,
+.rileySecondary:hover,
+.moneyCard a:hover{
+  transform:translateY(-3px) rotate(0deg);
+}
+
+.storyCard,
+.helpGrid article,
+.rollVisual,
+.impactGrid article,
+.kidWinBadge{
+  position:relative;
+  overflow:hidden;
+}
+.storyCard::after,
+.helpGrid article::after,
+.rollVisual::after,
+.impactGrid article::after{
+  content:"";
+  position:absolute;
+  width:72px;
+  height:72px;
+  border-radius:50%;
+  right:-28px;
+  bottom:-28px;
+  background:rgba(255,216,77,.22);
+  pointer-events:none;
+}
+
+.helpGrid article:nth-child(1){box-shadow:10px 10px 0 #ffcf42;}
+.helpGrid article:nth-child(2){box-shadow:10px 10px 0 #a67af4;}
+.helpGrid article:nth-child(3){box-shadow:10px 10px 0 #ff5f7f;}
+.helpGrid article:nth-child(1) .helpIcon{background:#fff0a8;}
+.helpGrid article:nth-child(2) .helpIcon{background:#eee3ff;}
+.helpGrid article:nth-child(3) .helpIcon{background:#ffe0e8;}
+
+.helpIcon{
+  width:64px;
+  height:64px;
+  display:grid;
+  place-items:center;
+  border:3px solid #222;
+  border-radius:20px;
+  font-size:32px;
+  transform:rotate(-5deg);
+}
+
+.helpGrid article:nth-child(2) .helpIcon{transform:rotate(5deg);}
+.helpGrid article:nth-child(3) .helpIcon{transform:rotate(-3deg);}
+
+.helpNumber{
+  font-size:64px!important;
+  opacity:.12!important;
+  top:14px!important;
+  right:18px!important;
+}
+
+.waysWrap{
+  background:
+    linear-gradient(#1f1f1f,#1f1f1f),
+    repeating-linear-gradient(45deg,rgba(255,255,255,.025) 0 12px,transparent 12px 24px);
+}
+
+.alreadyRolling{
+  align-items:center;
+  gap:42px;
+  padding-top:84px;
+  padding-bottom:84px;
+}
+.rollCopy{
+  background:#fff;
+  border:3px solid #222;
+  border-radius:30px;
+  padding:34px;
+  box-shadow:12px 12px 0 #ffd84d;
+}
+.rollCopy h2{
+  font-size:clamp(42px,5vw,72px)!important;
+  line-height:.96!important;
+}
+.rollCopy p{
+  font-size:18px;
+  line-height:1.6;
+}
+.rollCopy > span{
+  display:inline-block;
+  background:#ffe761;
+  border:2px solid #222;
+  border-radius:999px;
+  padding:8px 14px;
+  transform:rotate(-2deg);
+}
+
+.jasonFeatureCard{
+  background:linear-gradient(180deg,#fff4ba 0%,#fff8de 100%)!important;
+  border-radius:34px!important;
+  padding:24px!important;
+}
+.jasonHeroArt{
+  width:min(520px,100%);
+  display:block;
+  margin:4px auto 8px;
+  border:3px solid #222;
+  border-radius:24px;
+  background:#fff;
+  box-shadow:8px 8px 0 #e9164c;
+  object-fit:contain;
+}
+.jasonFeatureCard h3{
+  font-size:clamp(30px,3vw,46px)!important;
+  line-height:.98!important;
+  max-width:560px;
+}
+.wagonBadge{
+  font-size:12px!important;
+  background:#fff!important;
+  box-shadow:4px 4px 0 #ffd84d;
+}
+
+.donorTags span,
+.wagonMiniTags span{
+  box-shadow:3px 3px 0 rgba(0,0,0,.12);
+}
+
+.campaignArtStrip{
+  background:
+    radial-gradient(circle at 10% 30%, rgba(255,255,255,.3) 0 18px, transparent 19px),
+    radial-gradient(circle at 90% 65%, rgba(255,255,255,.25) 0 22px, transparent 23px),
+    linear-gradient(120deg,#ff5f7f,#ff8e53);
+}
+.campaignArtGrid img{
+  border:3px solid #222;
+  box-shadow:8px 8px 0 rgba(0,0,0,.22);
+  background:#fff;
+}
+.campaignArtGrid img:first-child{transform:rotate(-4deg);}
+.campaignArtGrid img:last-child{transform:rotate(4deg);}
+
+.onePack{
+  background:#fff6d7;
+  border-top:3px solid #222;
+  border-bottom:3px solid #222;
+}
+.impactGrid article:nth-child(1){background:#fff0a8;}
+.impactGrid article:nth-child(2){background:#e7dcff;}
+.impactGrid article:nth-child(3){background:#ffdce6;}
+.impactGrid article:nth-child(4){background:#dff4ff;}
+.impactGrid article{
+  border:3px solid #222!important;
+  border-radius:24px!important;
+  box-shadow:7px 7px 0 #222;
+  transform:rotate(-1deg);
+}
+.impactGrid article:nth-child(even){transform:rotate(1deg);}
+
+.kidWin{
+  padding-top:88px;
+  padding-bottom:88px;
+}
+.kidWinBadge{
+  box-shadow:12px 12px 0 #e9164c!important;
+  transform:rotate(3deg);
+}
+.kidWinBadge::before{
+  content:"⭐";
+  position:absolute;
+  top:18px;
+  right:22px;
+  font-size:34px;
+}
+
+.rileyFinal{
+  background:
+    radial-gradient(circle at 8% 30%, rgba(255,255,255,.25) 0 12px,transparent 13px),
+    radial-gradient(circle at 92% 60%, rgba(255,255,255,.2) 0 16px,transparent 17px),
+    linear-gradient(135deg,#e9164c,#ff6b78 55%,#ffad49);
+}
+
+@media(max-width:900px){
+  .alreadyRolling{
+    grid-template-columns:1fr!important;
+  }
+  .rollCopy h2{
+    font-size:clamp(40px,10vw,62px)!important;
+  }
+  .jasonHeroArt{
+    max-height:none;
+  }
+}
+
+@media(max-width:600px){
+  .rileyHeroCopy h1{
+    font-size:clamp(52px,15vw,78px)!important;
+  }
+  .rollCopy{
+    padding:24px 20px;
+    border-radius:24px;
+  }
+  .rollCopy p{
+    font-size:16px;
+  }
+  .jasonFeatureCard{
+    padding:18px!important;
+  }
+  .jasonHeroArt{
+    border-radius:18px;
+    box-shadow:5px 5px 0 #e9164c;
+  }
+  .helpGrid article{
+    border-radius:26px!important;
+  }
+}
