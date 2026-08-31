@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="t d">
+<title id="t">Green Mew parallel chase</title><desc id="d">PokéDaé editorial graphic celebrating a reported Green Mew parallel pull and the RGB Mew chase.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07130d"/><stop offset=".5" stop-color="#113d26"/><stop offset="1" stop-color="#101113"/></linearGradient>
+  <linearGradient id="rgb" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#ef2b2d"/><stop offset=".5" stop-color="#39d98a"/><stop offset="1" stop-color="#3a86ff"/></linearGradient>
+</defs>
+<rect width="1600" height="1000" fill="url(#bg)"/>
+<circle cx="1280" cy="500" r="360" fill="#39d98a" opacity=".16"/>
+<circle cx="1280" cy="500" r="245" fill="#39d98a" opacity=".18"/>
+<circle cx="1280" cy="500" r="130" fill="#74f0b2" opacity=".28"/>
+<g fill="none" stroke="#74f0b2" opacity=".2"><circle cx="1280" cy="500" r="430"/><circle cx="1280" cy="500" r="520"/></g>
+<text x="110" y="145" fill="#74f0b2" font-family="Arial,Helvetica,sans-serif" font-size="44" font-weight="900" letter-spacing="8">POKÉDAÉ • BREAKING TCG</text>
+<text x="110" y="385" fill="#fff" font-family="Arial,Helvetica,sans-serif" font-size="168" font-weight="950">GREEN MEW</text>
+<text x="110" y="505" fill="#74f0b2" font-family="Arial,Helvetica,sans-serif" font-size="88" font-weight="950">HAS BEEN PULLED!</text>
+<rect x="110" y="585" width="805" height="18" rx="9" fill="url(#rgb)"/>
+<text x="110" y="695" fill="#fff" font-family="Arial,Helvetica,sans-serif" font-size="54" font-weight="900">RGB MEW IS GETTING REAL 🌈</text>
+<text x="110" y="785" fill="#fff" opacity=".78" font-family="Arial,Helvetica,sans-serif" font-size="34">Same card. Different colors. A whole new chase?</text>
+<text x="110" y="900" fill="#74f0b2" font-family="Arial,Helvetica,sans-serif" font-size="38" font-weight="900">“WATER-MEW-LON” 🍉</text>
+</svg>
