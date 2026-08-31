@@ -784,3 +784,48 @@
     height:130px!important;
   }
 }
+
+
+/* Riley donation mascot refresh - 2026-08-31 */
+.rileyMascotHero{
+  max-height:620px!important;
+  max-width:100%!important;
+  object-fit:contain!important;
+  filter:drop-shadow(0 24px 16px rgba(0,0,0,.18))!important;
+  transform:translateY(12px);
+}
+.impactMascot{
+  width:225px!important;
+  left:-4px!important;
+  bottom:-14px!important;
+  filter:drop-shadow(8px 12px 0 rgba(0,0,0,.10))!important;
+}
+.finalRileyGrid>img{
+  width:min(390px,100%)!important;
+  max-height:520px!important;
+  object-fit:contain!important;
+  filter:drop-shadow(0 18px 14px rgba(0,0,0,.16));
+}
+.jasonSpotlight .jasonDonationImage{
+  width:min(100%,430px)!important;
+  height:auto!important;
+  max-height:360px!important;
+  object-fit:contain!important;
+  align-self:center!important;
+  margin:4px auto 16px!important;
+  border:3px solid #222;
+  border-radius:22px;
+  background:#fff;
+  padding:10px;
+  box-shadow:8px 8px 0 rgba(0,0,0,.16);
+  filter:none!important;
+}
+.jasonSpotlight{
+  justify-content:flex-start!important;
+}
+@media(max-width:700px){
+  .rileyMascotHero{max-height:470px!important;}
+  .impactMascot{width:165px!important;}
+  .finalRileyGrid>img{width:min(270px,86vw)!important;}
+  .jasonSpotlight .jasonDonationImage{max-height:280px!important;}
+}
