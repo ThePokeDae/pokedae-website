@@ -870,3 +870,19 @@
 @media(prefers-reduced-motion:reduce){
   .rileyCardFloat,.rileyRocketOrbit,.rileyCardHero .sunburst{animation:none!important}
 }
+
+/* Riley final artwork replacement */
+.finalRileyGrid>.rileyFinalArt{
+  width:min(520px,100%)!important;
+  max-height:none!important;
+  aspect-ratio:auto!important;
+  object-fit:contain!important;
+  border-radius:28px;
+  box-shadow:10px 10px 0 rgba(0,0,0,.16);
+  filter:none!important;
+}
+@media(max-width:700px){
+  .finalRileyGrid>.rileyFinalArt{
+    width:min(360px,92vw)!important;
+  }
+}
