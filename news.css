@@ -123,3 +123,9 @@
   .newsLinks>a{min-height:42px;padding:10px 9px;background:#fff}
   .newsLinks>a[href="/signup.html"]{background:var(--ink);color:#fff}
 }
+
+
+/* Mobile: hide Pokédex navigation link until mobile experience is ready */
+@media(max-width:800px){
+  nav a[href="/pokedex.html"]{display:none!important;}
+}
