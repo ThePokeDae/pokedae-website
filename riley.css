@@ -829,3 +829,29 @@
   .finalRileyGrid>img{width:min(270px,86vw)!important;}
   .jasonSpotlight .jasonDonationImage{max-height:280px!important;}
 }
+
+
+/* Jason Riley image framing tweak */
+.jasonSpotlight .jasonDonationImage{
+  width:100%!important;
+  max-width:none!important;
+  height:360px!important;
+  max-height:none!important;
+  object-fit:cover!important;
+  object-position:center!important;
+  transform:rotate(90deg) scale(1.18);
+  transform-origin:center center;
+  margin:0 auto!important;
+  padding:0!important;
+  border-radius:18px!important;
+  overflow:hidden;
+}
+.jasonSpotlight{
+  overflow:hidden;
+}
+@media(max-width:700px){
+  .jasonSpotlight .jasonDonationImage{
+    height:280px!important;
+    transform:rotate(90deg) scale(1.28);
+  }
+}
