@@ -839,19 +839,15 @@
   max-height:none!important;
   object-fit:cover!important;
   object-position:center!important;
-  transform:rotate(90deg) scale(1.18);
-  transform-origin:center center;
+  transform:none!important;
   margin:0 auto!important;
   padding:0!important;
   border-radius:18px!important;
-  overflow:hidden;
 }
-.jasonSpotlight{
-  overflow:hidden;
-}
+.jasonSpotlight{overflow:hidden;}
 @media(max-width:700px){
   .jasonSpotlight .jasonDonationImage{
     height:280px!important;
-    transform:rotate(90deg) scale(1.28);
+    transform:none!important;
   }
 }
