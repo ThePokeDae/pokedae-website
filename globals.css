@@ -283,3 +283,9 @@
 @media(max-width:800px){
   nav a[href="/pokedex.html"]{display:none!important;}
 }
+
+
+/* Homepage mobile brand label */
+@media(max-width:800px){
+  .homeNav .siteAddress b{display:inline!important;}
+}
