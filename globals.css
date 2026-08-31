@@ -219,3 +219,61 @@
     color:#fff!important;
   }
 }
+
+
+/* Featured homepage Riley link */
+.homeNav .navLinks>a.rileyHomeCta{
+  margin-left:5px;
+  padding:9px 15px!important;
+  min-height:38px;
+  background:linear-gradient(135deg,#ffd85a 0%,#ff9d72 52%,#ff6f87 100%)!important;
+  color:#7c1030!important;
+  border:2px solid #f02f57!important;
+  box-shadow:4px 4px 0 #1b1b1b!important;
+  font-size:9px!important;
+  letter-spacing:.04em!important;
+  font-weight:950;
+  overflow:hidden;
+}
+.homeNav .navLinks>a.rileyHomeCta:before{display:none!important}
+.homeNav .navLinks>a.rileyHomeCta:hover{
+  transform:translateY(-2px) rotate(-1deg);
+  box-shadow:5px 6px 0 #1b1b1b!important;
+  background:linear-gradient(135deg,#ffe47d 0%,#ffac7f 50%,#ff7c95 100%)!important;
+}
+.rileyNavHeart{
+  display:inline-grid;
+  place-items:center;
+  width:19px;height:19px;
+  margin-right:6px;
+  border-radius:50%;
+  background:#fff;
+  color:#e81f4f;
+  font-size:12px;
+  line-height:1;
+  box-shadow:0 2px 0 #d74b68;
+}
+.rileyNavStar{
+  margin-left:5px;
+  color:#fff;
+  font-size:10px;
+  text-shadow:0 1px 0 #b94961;
+}
+@media(max-width:1180px) and (min-width:801px){
+  .homeNav .navLinks>a.rileyHomeCta{
+    padding:8px 10px!important;
+    font-size:7.8px!important;
+    margin-left:2px;
+  }
+  .rileyNavHeart{width:16px;height:16px;font-size:10px;margin-right:4px}
+  .rileyNavStar{display:none}
+}
+@media(max-width:800px){
+  .homeNav .navLinks>a.rileyHomeCta{
+    grid-column:1/-1;
+    order:99;
+    min-height:48px!important;
+    font-size:11px!important;
+    box-shadow:4px 4px 0 #1b1b1b!important;
+  }
+}
