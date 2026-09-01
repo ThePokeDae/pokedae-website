@@ -289,3 +289,18 @@
 @media(max-width:800px){
   .homeNav .siteAddress b{display:inline!important;}
 }
+
+
+/* Active Giveaway button: force PokéDaé red */
+.navLinks>a.giveawayNav,
+.navLinks>a[href="/giveaway.html"].giveawayNav{
+  background:var(--red)!important;
+  color:#fff!important;
+  border-color:var(--red)!important;
+  box-shadow:4px 4px 0 var(--ink)!important;
+}
+.navLinks>a.giveawayNav:hover{
+  background:var(--red)!important;
+  color:#fff!important;
+  border-color:var(--ink)!important;
+}
