@@ -129,3 +129,11 @@
 @media(max-width:800px){
   nav a[href="/pokedex.html"]{display:none!important;}
 }
+
+
+/* Active Giveaway button: force PokéDaé red */
+.newsLinks a.giveawayLink{
+  background:#ef2b2d!important;
+  color:#fff!important;
+  border-color:#ef2b2d!important;
+}
