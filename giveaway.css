@@ -25,3 +25,23 @@ footer{border-top:3px solid var(--red);background:var(--ink);color:#fff;padding:
 @media(max-width:800px){
   nav a[href="/pokedex.html"]{display:none!important;}
 }
+
+
+/* Giveaway #3 prize + bonus refresh */
+.prize-card-v3{grid-template-columns:260px 1fr}
+.prize-visual{min-height:210px;display:grid;grid-template-columns:1fr auto 1fr;align-items:stretch;gap:10px}
+.pop-prize,.blister-prize{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border:3px solid var(--ink);padding:16px 10px;background:#f7f3ec}
+.pop-prize{box-shadow:6px 6px 0 var(--red)}
+.blister-prize{background:var(--ink);color:#fff;box-shadow:6px 6px 0 var(--red)}
+.pop-prize small,.blister-prize small{font-size:8px;letter-spacing:1.5px;font-weight:900;margin-bottom:10px}
+.pop-prize strong,.blister-prize strong{font-size:19px;line-height:1}
+.pop-prize span,.blister-prize span{font-size:10px!important;line-height:1.25!important;margin-top:8px;color:inherit!important;font-weight:800}
+.plus-mark{align-self:center;font-size:26px;font-weight:950;color:var(--red)}
+.bonus-box{margin-top:28px;border:2px solid var(--ink);background:#fff;box-shadow:8px 8px 0 var(--red)}
+.bonus-title{display:flex;align-items:center;gap:10px;padding:14px 16px;background:var(--ink);color:#fff;font-size:13px;letter-spacing:1.5px}
+.bonus-title span{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--red);font-size:18px}
+.bonus-row{display:grid;grid-template-columns:48px 1fr;gap:12px;align-items:center;padding:15px 16px;border-top:1px solid var(--line)}
+.bonus-row b{font-size:20px;color:var(--red)}
+.bonus-row span{font-size:14px;line-height:1.45;color:#4b4036}
+.bonus-row a{color:var(--red);font-weight:900}
+@media(max-width:700px){.prize-card-v3{grid-template-columns:1fr}.prize-visual{min-height:170px}.pop-prize strong,.blister-prize strong{font-size:16px}}
