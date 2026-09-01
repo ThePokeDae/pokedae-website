@@ -137,3 +137,22 @@
   color:#fff!important;
   border-color:#ef2b2d!important;
 }
+
+
+/* Mobile Giveaway access: keep the live giveaway obvious and tappable */
+@media(max-width:800px){
+  .newsLinks>a.giveawayLink{
+    display:flex!important;
+    grid-column:1/-1;
+    order:98;
+    min-height:48px!important;
+    padding:12px 16px!important;
+    background:#ef2b2d!important;
+    color:#fff!important;
+    border:2px solid #ef2b2d!important;
+    box-shadow:4px 4px 0 #101113!important;
+    font-size:11px!important;
+    font-weight:950!important;
+    letter-spacing:.06em!important;
+  }
+}
