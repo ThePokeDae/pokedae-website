@@ -45,3 +45,6 @@ footer{border-top:3px solid var(--red);background:var(--ink);color:#fff;padding:
 .bonus-row span{font-size:14px;line-height:1.45;color:#4b4036}
 .bonus-row a{color:var(--red);font-weight:900}
 @media(max-width:700px){.prize-card-v3{grid-template-columns:1fr}.prize-visual{min-height:170px}.pop-prize strong,.blister-prize strong{font-size:16px}}
+
+.bonus-note{margin:0;padding:12px 16px 14px;border-top:1px solid var(--line);font-size:12px;line-height:1.45;color:#4b4036;background:#fff6f2}
+.bonus-note strong{color:var(--red);letter-spacing:.4px}
