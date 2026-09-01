@@ -304,3 +304,23 @@
   color:#fff!important;
   border-color:var(--ink)!important;
 }
+
+
+/* Mobile Giveaway access: keep the live giveaway obvious and tappable */
+@media(max-width:800px){
+  .navLinks>a.giveawayNav,
+  .navLinks>a[href="/giveaway.html"].giveawayNav{
+    display:inline-flex!important;
+    grid-column:1/-1;
+    order:98;
+    min-height:48px!important;
+    padding:12px 16px!important;
+    background:var(--red)!important;
+    color:#fff!important;
+    border:2px solid var(--red)!important;
+    box-shadow:4px 4px 0 var(--ink)!important;
+    font-size:11px!important;
+    font-weight:950!important;
+    letter-spacing:.06em!important;
+  }
+}
