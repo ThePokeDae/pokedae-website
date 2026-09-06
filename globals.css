@@ -327,7 +327,6 @@
 
 
 /* TEMP: hide Giveaway nav until next giveaway */
-a.giveawayNav,
-a[href="/giveaway.html"].giveawayNav,
-a[href="./giveaway.html"].giveawayNav,
-a[href="giveaway.html"].giveawayNav{display:none!important}
+.navLinks a[href="/giveaway.html"],
+.navLinks a[href="./giveaway.html"],
+.navLinks a[href="giveaway.html"]{display:none!important}
