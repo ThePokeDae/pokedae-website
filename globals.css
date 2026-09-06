@@ -324,3 +324,10 @@
     letter-spacing:.06em!important;
   }
 }
+
+
+/* TEMP: hide Giveaway nav until next giveaway */
+a.giveawayNav,
+a[href="/giveaway.html"].giveawayNav,
+a[href="./giveaway.html"].giveawayNav,
+a[href="giveaway.html"].giveawayNav{display:none!important}
