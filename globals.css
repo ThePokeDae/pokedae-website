@@ -326,7 +326,6 @@
 }
 
 
-/* TEMP: hide Giveaway nav until next giveaway */
-.navLinks a[href="/giveaway.html"],
-.navLinks a[href="./giveaway.html"],
-.navLinks a[href="giveaway.html"]{display:none!important}
+/* TEMP: hide Giveaway links sitewide until next giveaway */
+a[href$="giveaway.html"]{display:none!important}
+
