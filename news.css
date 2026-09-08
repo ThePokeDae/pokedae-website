@@ -156,3 +156,6 @@
     letter-spacing:.06em!important;
   }
 }
+
+/* TEMP: hide Giveaway links sitewide until next giveaway */
+a[href$="giveaway.html"]{display:none!important}
