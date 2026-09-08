@@ -48,3 +48,6 @@ footer{border-top:3px solid var(--red);background:var(--ink);color:#fff;padding:
 
 .bonus-note{margin:0;padding:12px 16px 14px;border-top:1px solid var(--line);font-size:12px;line-height:1.45;color:#4b4036;background:#fff6f2}
 .bonus-note strong{color:var(--red);letter-spacing:.4px}
+
+/* TEMP: hide Giveaway links sitewide until next giveaway */
+a[href$="giveaway.html"]{display:none!important}
