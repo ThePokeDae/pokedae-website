@@ -2,6 +2,21 @@ const MAX_DEX = 1025;
 const POKEAPI = 'https://pokeapi.co/api/v2';
 const TCGDEX = 'https://api.tcgdex.net/v2/en';
 const POKEMONTCG = 'https://api.pokemontcg.io/v2';
+const DEBUT_OVERRIDES = {
+  // The APIs do not consistently return cards in release order. Bulbasaur must
+  // always open the Pokédex with its 1999 English Base Set debut, card 44/102.
+  1: {
+    id:'base1-44',
+    name:'Bulbasaur',
+    image:'https://assets.tcgdex.net/en/base/base1/44',
+    localId:'44',
+    set:'Base Set',
+    date:'1999-01-09',
+    illustrator:'Mitsuhiro Arita',
+    rarity:'Common',
+    source:'tcgdex'
+  }
+};
 const GENERATIONS = [
   {name:'Generation I',min:1,max:151},{name:'Generation II',min:152,max:251},{name:'Generation III',min:252,max:386},
   {name:'Generation IV',min:387,max:493},{name:'Generation V',min:494,max:649},{name:'Generation VI',min:650,max:721},
@@ -214,7 +229,13 @@ async function resolveDebutBriefPTCG(p){
 async function resolveDebutBrief(p){
   if(gridDebutCache.has(p.id)) return gridDebutCache.get(p.id);
 
-  const key='pokedae-debut-v2-'+p.id;
+  if(DEBUT_OVERRIDES[p.id]){
+    const override=DEBUT_OVERRIDES[p.id];
+    gridDebutCache.set(p.id,override);
+    return override;
+  }
+
+  const key='pokedae-debut-v3-'+p.id;
   try{
     const stored=localStorage.getItem(key);
     if(stored){
@@ -275,7 +296,7 @@ async function resolveDebutBrief(p){
 async function resolveDebut(p){
   if(debutCache.has(p.id)) return debutCache.get(p.id);
 
-  const key='pokedae-debut-v2-'+p.id;
+  const key='pokedae-debut-v3-'+p.id;
   try{
     const stored=localStorage.getItem(key);
     if(stored){
