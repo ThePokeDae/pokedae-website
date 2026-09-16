@@ -50,4 +50,4 @@ footer{border-top:3px solid var(--red);background:var(--ink);color:#fff;padding:
 .bonus-note strong{color:var(--red);letter-spacing:.4px}
 
 /* TEMP: hide Giveaway links sitewide until next giveaway */
-a[href$="giveaway.html"]{display:none!important}
+.giveawayNavLinks>a.giveawayActive[href$="giveaway.html"],a[href$="giveaway.html"]{display:none!important}
