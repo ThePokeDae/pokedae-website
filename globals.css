@@ -327,5 +327,5 @@
 
 
 /* TEMP: hide Giveaway links sitewide until next giveaway */
-a[href$="giveaway.html"]{display:none!important}
+.navLinks>a.giveawayNav[href$="giveaway.html"],a.mobileGiveaway[href$="giveaway.html"],a[href$="giveaway.html"]{display:none!important}
 
