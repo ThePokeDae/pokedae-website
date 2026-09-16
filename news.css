@@ -158,4 +158,4 @@
 }
 
 /* TEMP: hide Giveaway links sitewide until next giveaway */
-a[href$="giveaway.html"]{display:none!important}
+.newsLinks>a.giveawayLink[href$="giveaway.html"],a[href$="giveaway.html"]{display:none!important}
