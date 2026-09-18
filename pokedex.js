@@ -2,20 +2,18 @@ const MAX_DEX = 1025;
 const POKEAPI = 'https://pokeapi.co/api/v2';
 const TCGDEX = 'https://api.tcgdex.net/v2/en';
 const POKEMONTCG = 'https://api.pokemontcg.io/v2';
+const DEBUT_CACHE_VERSION = 'v4-release-order';
 const DEBUT_OVERRIDES = {
-  // The APIs do not consistently return cards in release order. Bulbasaur must
-  // always open the Pokédex with its 1999 English Base Set debut, card 44/102.
-  1: {
-    id:'base1-44',
-    name:'Bulbasaur',
-    image:'https://assets.tcgdex.net/en/base/base1/44',
-    localId:'44',
-    set:'Base Set',
-    date:'1999-01-09',
-    illustrator:'Mitsuhiro Arita',
-    rarity:'Common',
-    source:'tcgdex'
-  }
+  // Keep the opening starters correct even if either card API is slow or down.
+  1: {id:'base1-44',name:'Bulbasaur',image:'https://assets.tcgdex.net/en/base/base1/44',localId:'44',set:'Base Set',date:'1999-01-09',illustrator:'Mitsuhiro Arita',rarity:'Common',source:'tcgdex'},
+  2: {id:'base1-30',name:'Ivysaur',image:'https://assets.tcgdex.net/en/base/base1/30',localId:'30',set:'Base Set',date:'1999-01-09',illustrator:'Ken Sugimori',rarity:'Uncommon',source:'tcgdex'},
+  3: {id:'base1-15',name:'Venusaur',image:'https://assets.tcgdex.net/en/base/base1/15',localId:'15',set:'Base Set',date:'1999-01-09',illustrator:'Mitsuhiro Arita',rarity:'Rare Holo',source:'tcgdex'},
+  4: {id:'base1-46',name:'Charmander',image:'https://assets.tcgdex.net/en/base/base1/46',localId:'46',set:'Base Set',date:'1999-01-09',illustrator:'Mitsuhiro Arita',rarity:'Common',source:'tcgdex'},
+  5: {id:'base1-24',name:'Charmeleon',image:'https://assets.tcgdex.net/en/base/base1/24',localId:'24',set:'Base Set',date:'1999-01-09',illustrator:'Mitsuhiro Arita',rarity:'Uncommon',source:'tcgdex'},
+  6: {id:'base1-4',name:'Charizard',image:'https://assets.tcgdex.net/en/base/base1/4',localId:'4',set:'Base Set',date:'1999-01-09',illustrator:'Mitsuhiro Arita',rarity:'Rare Holo',source:'tcgdex'},
+  7: {id:'base1-63',name:'Squirtle',image:'https://assets.tcgdex.net/en/base/base1/63',localId:'63',set:'Base Set',date:'1999-01-09',illustrator:'Mitsuhiro Arita',rarity:'Common',source:'tcgdex'},
+  8: {id:'base1-42',name:'Wartortle',image:'https://assets.tcgdex.net/en/base/base1/42',localId:'42',set:'Base Set',date:'1999-01-09',illustrator:'Ken Sugimori',rarity:'Uncommon',source:'tcgdex'},
+  9: {id:'base1-2',name:'Blastoise',image:'https://assets.tcgdex.net/en/base/base1/2',localId:'2',set:'Base Set',date:'1999-01-09',illustrator:'Ken Sugimori',rarity:'Rare Holo',source:'tcgdex'}
 };
 const GENERATIONS = [
   {name:'Generation I',min:1,max:151},{name:'Generation II',min:152,max:251},{name:'Generation III',min:252,max:386},
@@ -31,6 +29,7 @@ const NAME_FIXES={
   'ting-lu':'Ting-Lu','chi-yu':'Chi-Yu'
 };
 const setCache = new Map();
+let setReleaseOrderPromise = null;
 const debutCache = new Map();
 const gridDebutCache = new Map();
 const detailCache = new Map();
@@ -193,10 +192,32 @@ if(IS_MOBILE){
 }
 
 function setIdFromCardId(id){const ix=id.lastIndexOf('-');return ix>0?id.slice(0,ix):id}
+function debutStorageKey(id){return `pokedae-debut-${DEBUT_CACHE_VERSION}-${id}`}
 async function getSet(setId){
   if(setCache.has(setId)) return setCache.get(setId);
   const p=fetch(`${TCGDEX}/sets/${encodeURIComponent(setId)}`).then(r=>r.ok?r.json():null).catch(()=>null);
   setCache.set(setId,p); return p;
+}
+
+async function getSetReleaseOrder(){
+  if(setReleaseOrderPromise) return setReleaseOrderPromise;
+  setReleaseOrderPromise=fetch(`${TCGDEX}/sets?sort%3Afield=releaseDate&sort%3Aorder=ASC`)
+    .then(r=>r.ok?r.json():[])
+    .then(sets=>new Map(sets.map((set,index)=>[set.id,index])))
+    .catch(()=>new Map());
+  return setReleaseOrderPromise;
+}
+
+async function earliestTCGDexCard(cards){
+  const usable=cards.filter(card=>card?.image);
+  if(usable.length<2) return usable[0]||null;
+  const order=await getSetReleaseOrder();
+  return usable.sort((a,b)=>{
+    const aRank=order.get(setIdFromCardId(a.id))??Number.MAX_SAFE_INTEGER;
+    const bRank=order.get(setIdFromCardId(b.id))??Number.MAX_SAFE_INTEGER;
+    if(aRank!==bRank) return aRank-bRank;
+    return String(a.localId||'').localeCompare(String(b.localId||''),undefined,{numeric:true});
+  })[0]||null;
 }
 
 function normalizedCardName(name){return name.toLowerCase().replace(/[♀♂]/g,'').replace(/[é]/g,'e').replace(/[.'’:\-]/g,' ').replace(/\s+/g,' ').trim()}
@@ -235,7 +256,7 @@ async function resolveDebutBrief(p){
     return override;
   }
 
-  const key='pokedae-debut-v3-'+p.id;
+  const key=debutStorageKey(p.id);
   try{
     const stored=localStorage.getItem(key);
     if(stored){
@@ -250,11 +271,10 @@ async function resolveDebutBrief(p){
   const pokemonName=displayName(p.name);
 
   const promise=(async()=>{
-    // Mobile gets an independent source first so TCGdex cannot stall the card wall.
-    if(IS_MOBILE){
-      const ptcg=await withTimeout(resolveDebutBriefPTCG(p),6000,null);
-      if(ptcg) return ptcg;
-    }
+    // This API can sort directly by English set release date, so it is the
+    // authoritative first choice on every screen size.
+    const ptcg=await withTimeout(resolveDebutBriefPTCG(p),6000,null);
+    if(ptcg) return ptcg;
 
     try{
       let cards=[];
@@ -269,7 +289,7 @@ async function resolveDebutBrief(p){
         }
       }
 
-      const first=cards.find(c=>c.image)||null;
+      const first=await earliestTCGDexCard(cards);
       if(first){
         return {
           id:first.id,
@@ -285,8 +305,7 @@ async function resolveDebutBrief(p){
       }
     }catch{}
 
-    // Desktop also gets the same fallback if TCGdex fails.
-    return await withTimeout(resolveDebutBriefPTCG(p),6000,null);
+    return null;
   })();
 
   gridDebutCache.set(p.id,promise);
@@ -296,7 +315,7 @@ async function resolveDebutBrief(p){
 async function resolveDebut(p){
   if(debutCache.has(p.id)) return debutCache.get(p.id);
 
-  const key='pokedae-debut-v3-'+p.id;
+  const key=debutStorageKey(p.id);
   try{
     const stored=localStorage.getItem(key);
     if(stored){
