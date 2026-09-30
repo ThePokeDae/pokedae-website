@@ -11,3 +11,17 @@ body{background-color:#fff9f0;background-image:radial-gradient(ellipse at 95% 8%
 html,body{overflow-x:clip}
 .calendarMission:before{background:linear-gradient(145deg,#ba510d,#873804)}
 .calendarMission p,.calendarMission strong{color:#fff}
+
+/* Spooky season: decorative only; controls and reading stay unobstructed. */
+body{background-image:radial-gradient(ellipse at 95% 8%,#8b5cf622,transparent 40%),radial-gradient(ellipse at 0% 65%,#ff8a0020,transparent 40%)}
+.octoberBanner{position:relative;background:linear-gradient(100deg,#21132f,#482064 58%,#21132f);border-bottom:3px solid #ff9d35;box-shadow:0 3px 16px #7a3db629}.octoberBanner b{color:#ffc777}.octoberBanner b:before{content:'✦ ';color:#ff9d35}.octoberBanner b:after{content:' ✦';color:#ff9d35}
+.halloweenSky{position:fixed;inset:0;z-index:4;pointer-events:none;overflow:hidden;contain:strict}.halloweenSky svg{display:block;width:100%;height:100%}.halloweenWeb{position:absolute;top:82px;width:195px;height:195px;color:#5c367b;opacity:.24}.webLeft{left:0}.webRight{right:0;transform:scaleX(-1)}
+.halloweenBat{position:absolute;left:-100px;width:66px;height:36px;color:#261534;filter:drop-shadow(0 3px 2px #ffffff70);animation:batFlight 26s linear infinite}.halloweenBat svg{animation:batFlutter .65s ease-in-out infinite alternate;transform-origin:center}.bat1{top:192px;animation-delay:-5s}.bat2{top:328px;width:45px;height:25px;animation-duration:33s;animation-delay:-17s;color:#66378a}.bat3{top:118px;width:34px;height:19px;animation-duration:40s;animation-delay:-29s}
+.halloweenSpider{position:absolute;right:34px;top:82px;width:31px;height:110px;color:#352047;transform-origin:top center;animation:spiderSway 7s ease-in-out infinite}
+@keyframes batFlight{0%{transform:translateX(-80px) translateY(0) rotate(-6deg);opacity:0}5%{opacity:.85}25%{transform:translateX(27vw) translateY(-36px) rotate(6deg)}50%{transform:translateX(55vw) translateY(26px) rotate(-5deg)}75%{transform:translateX(83vw) translateY(-18px) rotate(7deg)}95%{opacity:.85}100%{transform:translateX(calc(100vw + 180px)) translateY(0);opacity:0}}
+@keyframes batFlutter{from{transform:scaleY(.72)}to{transform:scaleY(1)}}
+@keyframes spiderSway{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(6deg)}}
+.monthNote,.octoberBrief{border-color:#4b2567}.octoberBrief{box-shadow:5px 5px 0 #e9daf4}.calendarMission{box-shadow:9px 9px 0 #ffa943}.calendarMission:after{font-size:32px}.calendarMission:before{background:linear-gradient(145deg,#db650d,#a84909)}
+.goEventPhoto{width:100%;aspect-ratio:16/9;object-fit:cover;border:2px solid #21132f;border-radius:7px;margin:12px 0 17px}.goNextGrid .goEventCard{overflow:hidden}.goHeroImage{object-fit:cover!important;padding:0!important;background:#21132f}.goPassVisual img{width:100%;height:100%;object-fit:cover}.goArtCredit{font-size:11px;line-height:1.6;color:#675b70;margin:18px 0 0}
+@media(max-width:650px){.halloweenWeb{width:110px;height:110px;top:105px;opacity:.2}.halloweenSpider{right:13px;top:104px;width:23px;height:76px}.halloweenBat{width:40px;height:23px}.bat2{width:28px;height:16px;top:270px}.bat3{display:none}.bat1{top:152px}}
+@media(prefers-reduced-motion:reduce){.halloweenBat,.halloweenBat svg,.halloweenSpider{animation:none}.halloweenBat{left:auto;right:40px;top:205px;opacity:.6}.bat2,.bat3{display:none}}

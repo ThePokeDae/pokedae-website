@@ -1,0 +1,68 @@
+[
+  {
+    "name": "twilight-trails",
+    "source_page": "https://pokemongo.com/seasons/twilight-trails",
+    "image_source": "https://lh3.googleusercontent.com/YEKSpLgk0hK8AR4RphzdrycILoXOsPh3wHTbphkSJdTYIJ3jKUubRQ6LRrEHL3sBzX0x5X-SjnH7cdta03BpTy5Q7Fz8pTULK5Y7H9AN5zk",
+    "path": "assets/go/twilight-trails.webp",
+    "size": [
+      1200,
+      675
+    ],
+    "bytes": 134304
+  },
+  {
+    "name": "october-kyogre",
+    "source_page": "https://pokemongo.com/news/go-pass-october-2026",
+    "image_source": "https://lh3.googleusercontent.com/YI_hCo34fVtgznowncdPRDK3uObq-7nJkPTmsttNh2uBZGkKDqFWvPQFP-9lTLmjkvpb-iHQq-JERqqXXYbVsWryT2gNTWc5_xVf3H0H-3FN",
+    "path": "assets/go/october-kyogre.webp",
+    "size": [
+      1200,
+      675
+    ],
+    "bytes": 105446
+  },
+  {
+    "name": "october-zorua",
+    "source_page": "https://pokemongo.com/news/communityday-october-2026-zorua",
+    "image_source": "https://lh3.googleusercontent.com/HJT-iQ6qMUmoXYCmtwOqp-68HQFXJFzEiw6R_eqgY9KhKQLdihsIsIIY_Px9DE8-oBEzB0Cr7CKoyk5pX8tyWklwJyyRyH0GiBrBNRc82YA",
+    "path": "assets/go/october-zorua.webp",
+    "size": [
+      1200,
+      675
+    ],
+    "bytes": 65586
+  },
+  {
+    "name": "cinderace-max-day",
+    "source_page": "https://pokemongo.com/news/gigantamax-cinderace-max-battle-day-2026",
+    "image_source": "https://lh3.googleusercontent.com/WT8oI0oxsVj0AVZ1qD58MMbCPc8di-ajTXg2IBD3OcFshTR025JQIKbJnlMYVUBw96yMdeyMlosgQliCxVxgyTCJPtiN53G05HUMcdshAw",
+    "path": "assets/go/cinderace-max-day.webp",
+    "size": [
+      1200,
+      675
+    ],
+    "bytes": 64282
+  },
+  {
+    "name": "world-space-week",
+    "source_page": "https://pokemongo.com/news/world-space-week-2026",
+    "image_source": "https://lh3.googleusercontent.com/AiDIi-NAxX879TxCAX8X6I6EwjrUUajpCN18w4uPXAwSqgbR1y6_awmrDJFY31ljBfh4flc1v5Ma2by0Mt4y77-Q4LCPLnSBEMZIJSS0hvZx",
+    "path": "assets/go/world-space-week.webp",
+    "size": [
+      1200,
+      675
+    ],
+    "bytes": 78188
+  },
+  {
+    "name": "sandile-hatch-day",
+    "source_page": "https://pokemongo.com/news/sandile-hatch-day-2026",
+    "image_source": "https://lh3.googleusercontent.com/r1sFIBAWuypbu790nY-nohK15pwrrz9wxabdnLn-equ2WbOzIF-1_H6L15URPfazMTlosJBnBe-PR_Wpdj6Q7GJ2JrShPTDUEc6_GMgtShxE",
+    "path": "assets/go/sandile-hatch-day.webp",
+    "size": [
+      1200,
+      675
+    ],
+    "bytes": 161424
+  }
+]
