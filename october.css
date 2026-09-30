@@ -1,0 +1,8 @@
+/* PokéDaé October seasonal layer. Keep core layouts and mascot artwork. */
+:root{--red:#b94908}
+body{background-color:#fff9f0;background-image:radial-gradient(ellipse at 95% 8%,#8b5cf612,transparent 35%),radial-gradient(ellipse at 0% 65%,#ff8a0010,transparent 40%)}
+.octoberBanner{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px 18px;padding:11px 18px;background:#21132f;color:#fff7eb;border-bottom:3px solid #f4a340;font:800 12px/1.5 system-ui,sans-serif;letter-spacing:.025em;text-align:center}
+.octoberBanner a{color:#ffd49a;text-decoration:underline;text-underline-offset:3px}.octoberBanner span{color:#eadcf8}.octoberBanner b{white-space:nowrap}
+.nav{border-bottom-color:#b94908}.activeNav{color:#b94908!important}.monthNote{box-shadow:9px 9px 0 #8c58b7}.calendarMission{box-shadow:9px 9px 0 #f4a340}.calendarHero h1 em{color:#b94908}.calendarMission:after{content:'🎃';text-shadow:none}.launchStamp{background:#ffc66b}.celebrationHub{box-shadow:12px 12px 0 #8c58b7}.celebrationMascot{background:linear-gradient(150deg,#854ab5,#4a286b)}
+.octoberBrief{margin:24px auto;padding:22px 24px;border:2px solid #21132f;border-left:7px solid #b94908;background:#fff9f0;color:#21132f;max-width:1200px}.octoberBrief h2{margin:0 0 10px;font-size:24px;line-height:1.2}.octoberBrief p{margin:0;line-height:1.6}.octoberBrief a{color:#943900;font-weight:800;text-decoration:underline}
+@media(max-width:650px){.octoberBanner{font-size:11px;padding:10px 12px;gap:5px 12px}.octoberBanner span{width:100%}.octoberBrief{margin:18px 12px;padding:18px}.octoberBrief h2{font-size:21px}}
